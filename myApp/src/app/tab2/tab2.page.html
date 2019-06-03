@@ -1,9 +1,28 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Tab Two
-    </ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            Tab Two
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="4"  *ngFor="let serie of series">
+                <ion-card>
+                    <ion-card-header>
+                        <ion-card-subtitle>{{ serie.name }}</ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-content>
+                        {{ serie.review }}
+                        <ion-item>
+                            <ion-label>Rating: {{ serie.rating }}</ion-label>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>
