@@ -7,23 +7,17 @@
 </ion-header>
 
 <ion-content>
-    <form action="javascript:void(0)" method="GET">
-        <ion-card>
-            <ion-input type="text" placeholder="Username"></ion-input>
-            <ion-input type="password" placeholder="Password"></ion-input>
-            <ion-button type="submit">Login</ion-button>
-        </ion-card>
-    </form>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="6">
+                <app-login-form></app-login-form>
+            </ion-col>
+            <ion-col>
+                <app-register-form></app-register-form>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 
-    <form action="javascript:void(0)" method="POST">
-        <ion-card>
-            <ion-card-header>
-                <ion-card-title>Register</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-input type="text" placeholder="Username"></ion-input>
-            </ion-card-content>
-        </ion-card>
-    </form>
+
 
 </ion-content>

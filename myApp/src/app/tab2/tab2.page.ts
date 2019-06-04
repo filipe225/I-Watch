@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
     styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page {
-    series: Object[];
+    series: Array<{name: string, review: string, rating: Number}>;
 
     constructor() {
         this.series = [
