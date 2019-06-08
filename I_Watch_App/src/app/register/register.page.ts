@@ -13,9 +13,7 @@ export class RegisterPage implements OnInit {
     validationMessages: Object;
 
     constructor(
-        private formBuilder: FormBuilder,
-        private formControl: FormControl,
-        private formGroup: FormGroup
+        private formBuilder: FormBuilder
     ) { }
 
     ngOnInit() {
@@ -34,7 +32,8 @@ export class RegisterPage implements OnInit {
             last_name: new FormControl('', Validators.required)
         });
 
-        this.registrationForm = this.formBuilder.group(myFormGroup);
+        this.registrationForm = this.formBuilder.group(myFormGroup.controls);
+        console.log("TCL: RegisterPage -> ngOnInit -> registrationForm", this.registrationForm);
 
         this.validationMessages = {
             'username': [
