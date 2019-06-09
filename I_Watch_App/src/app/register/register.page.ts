@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+ 
 import { User } from '../_models/User';
 
 @Component({
@@ -13,7 +14,8 @@ export class RegisterPage implements OnInit {
     validationMessages: Object;
 
     constructor(
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+    
     ) { }
 
     ngOnInit() {

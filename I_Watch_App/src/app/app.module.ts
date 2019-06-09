@@ -10,9 +10,12 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { InputValidationErrorsComponent } from './input-validation-errors/input-validation-errors.component';
+
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        InputValidationErrorsComponent
     ],
     entryComponents: [],
     imports: [
