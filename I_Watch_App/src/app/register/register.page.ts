@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { InputValidationErrorsComponent } from '../_components/input-validation-errors/input-validation-errors.component';
  
 import { User } from '../_models/User';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.page.html',
-    styleUrls: ['./register.page.scss']
+    styleUrls: ['./register.page.scss'],
+    providers: [InputValidationErrorsComponent]
 })
 export class RegisterPage implements OnInit {
     user: User;
     registrationForm: FormGroup;
     validationMessages: Object;
 
-    constructor(
-        private formBuilder: FormBuilder,
-    
-    ) { }
+    constructor( private formBuilder: FormBuilder) { }
 
     ngOnInit() {
         let myFormGroup = new FormGroup({
@@ -29,7 +29,7 @@ export class RegisterPage implements OnInit {
                 updateOn: 'change'
             }),
             repeat_password: new FormControl('', Validators.required),
-            email: new FormControl('', Validators.required),
+            user_email: new FormControl('', Validators.required),
             first_name: new FormControl('', Validators.required),
             last_name: new FormControl('', Validators.required)
         });
@@ -46,12 +46,26 @@ export class RegisterPage implements OnInit {
                 { type: 'required', message: 'Password is required' },
                 { type: 'minLength', message: 'Minimum length is 6' },
                 { type: 'maxLength', message: 'Maximum length is 20' }
+            ],
+            'repeat_password': [
+                { type: 'required', message: 'Repeat password is required' }
+            ],
+            'email': [
+                { type: 'required', message: 'Email is Required'},
+                { type: 'pattern', message: 'Email does not fit a valid pattern'}
+            ],
+            'first_name': [
+                { type: 'required', message: 'First name is required' }
+            ],
+            'last_name': [
+                { type: 'required', message: 'Last name is required' }
             ]
         }
     }
 
     onSubmit() {
         console.log("REGISTRATION FORM STATUS", this.registrationForm.status);
+        console.log('REGISTRATION OBJECT', this.registrationForm);
     }
 
 }

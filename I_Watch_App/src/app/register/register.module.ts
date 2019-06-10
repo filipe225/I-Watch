@@ -5,23 +5,28 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
+import { InputValidationErrorsComponent } from '../_components/input-validation-errors/input-validation-errors.component';
+
 import { RegisterPage } from './register.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: RegisterPage
-  }
+    {
+        path: '',
+        component: RegisterPage
+    }
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes),
-    ReactiveFormsModule
-  ],
-  declarations: [RegisterPage]
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes),
+        ReactiveFormsModule
+    ],
+    declarations: [
+        RegisterPage,
+        InputValidationErrorsComponent
+    ]
 })
-export class RegisterPageModule {}
+export class RegisterPageModule { }
