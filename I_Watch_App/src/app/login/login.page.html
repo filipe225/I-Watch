@@ -10,24 +10,24 @@
         <ion-row>
 
             <ion-col size="12" size-lg="6" offset-lg="3">
-                <form [formGroup]="loginForm" action="" method="GET">
+                <form>
                     <ion-item lines="none">
                         <ion-label hidden id="error-message"></ion-label>
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating">Username</ion-label>
-                        <ion-input type="text" id="input_username" name="input_username">
+                        <ion-input type="text" [ngModel]="loginFormInput.username" name="input_username">
                         </ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating">Password</ion-label>
-                        <ion-input type="password" id="input_password" name="input_password">
+                        <ion-input type="password" [ngModel]="loginFormInput.password" name="input_password">
                         </ion-input>
                     </ion-item>
 
                     <ion-item lines="none">
                         <ion-button type="button" id="btn_cancel" name="btn_cancel">Cancel</ion-button>
-                        <ion-button type="submit" id="btn_login" name="btn_login" right>Login</ion-button>
+                        <ion-button type="submit" id="btn_login" name="btn_login" right (click)="loginSubmit()">Login</ion-button>
                     </ion-item>
 
                 </form>

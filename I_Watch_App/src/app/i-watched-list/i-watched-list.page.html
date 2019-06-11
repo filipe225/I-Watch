@@ -1,9 +1,33 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>I-watched-list</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>I Watched</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+    <ion-grid>
+        <ion-row>
+            <ion-col size-md="6">
+                <ion-card *ngFor="let review of all_reviews">
+                    <ion-card-header>
+                        <ion-card-subtitle>{{ review.type }}</ion-card-subtitle>
+                        <ion-card-title>{{ review.name }}</ion-card-title>
+                    </ion-card-header>
+
+                    <ion-card-content>
+                        <ion-label>{{ review.opinion }}</ion-label>
+                        <ion-item>
+                            <ion-label size="1">Rating: {{ review.rating }}</ion-label>
+                        </ion-item>
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
 </ion-content>
+
+<button class="button button-float" (onClick)="addNewItem()">
+    <i class="icon ion-plus"></i>
+</button>
