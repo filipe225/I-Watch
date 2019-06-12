@@ -11,12 +11,19 @@
     --ion-text-color-rgb: 71, 71, 71;
     --color: #474747!important;
     --color-rgb: 71, 71, 71!important;
-    /**  **/
+
+    /** MY COLOR STYLE **/
+    --ion-color-favorite: #ff0000;
+    --ion-color-favorite-rgb: 255, 0, 0;
+    --ion-color-favorite-contrast: #fff;
+    --ion-color-favorite-contrast-rgb: 255, 255, 255;
+    --ion-color-favorite-shade: #fd5353;
+    --ion-color-favorite-tint: #d44545;
 
     /** primary **/
     --ion-color-primary: #3880ff;
     --ion-color-primary-rgb: 56, 128, 255;
-    --ion-color-primary-contrast: #62BAAC;
+    --ion-color-primary-contrast: #fff;
     --ion-color-primary-contrast-rgb: 255, 255, 255;
     --ion-color-primary-shade: #3171e0;
     --ion-color-primary-tint: #4c8dff;

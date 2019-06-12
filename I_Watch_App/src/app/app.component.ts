@@ -29,6 +29,11 @@ export class AppComponent {
             title: 'I Watched',
             url: '/i-watched-list',
             icon: 'list'
+        },
+        {
+            title: 'Add New Item',
+            url: '/add-new-item',
+            icon: 'add'
         }
     ];
 

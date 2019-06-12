@@ -25,8 +25,9 @@ const routes: Routes = [
     },
     {
         path: 'i-watched-list',
-        loadChildren: './list/list.module#ListPageModule'
-    }
+        loadChildren: './i-watched-list/i-watched-list.module#IWatchedListPageModule'
+    },
+    { path: 'add-new-item', loadChildren: './add-new-item/add-new-item.module#AddNewItemPageModule' }
 ];
 
 @NgModule({

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
-export class UserServiceService {
+export class UserLocalStorageService {
     default_item_name: string = 'user-items';
 
     constructor() { }
@@ -14,11 +14,11 @@ export class UserServiceService {
 
     setStorageItem(itemName: string, itemObject) {
         try {
-            Object.defineProperty(itemObject, 'edited', new Date().toISOString());
+            Object.defineProperty(itemObject, 'edited', { value: new Date().toISOString() });
             localStorage.setItem(itemName || this.default_item_name, JSON.stringify(itemObject))
             return 200;
         } catch (error) {
-            console.log(error);
+            console.error(error);
             return error;
         }
     }
