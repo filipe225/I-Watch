@@ -8,6 +8,8 @@ import { UserLocalStorageService } from '../services/user-local-storage.service'
     providers: [UserLocalStorageService]
 })
 export class AddNewItemPage implements OnInit {
+    itemType: string = null;
+
     constructor(
         private userLocalStorageService: UserLocalStorageService
     ) { }
@@ -57,4 +59,15 @@ export class AddNewItemPage implements OnInit {
         ])
     }
 
+    addTypeMovie() {
+        this.itemType = 'movie';
+    }
+
+    addTypeSeries() {
+        this.itemType = 'series';
+    }
+
+    addTypeBook() {
+        this.itemType = 'book';
+    }
 }
