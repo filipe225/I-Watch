@@ -12,7 +12,7 @@ export class LoginPage implements OnInit {
     submitted: false;
     mockUsers: Array<{username: string, password: string}> = [
         { username: 'filipe', password: '12345' },
-        { username: 'ruben_neves', password: 'aaawww' },
+        { username: 'ruben_neves', password: 'starwars' },
         { username: 'cristiano_ronaldo', password: 'qwerty' }
     ];
     loginFormInput = {

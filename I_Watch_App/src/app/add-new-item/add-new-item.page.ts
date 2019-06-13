@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserLocalStorageService } from '../services/user-local-storage.service';
 
 @Component({
@@ -9,12 +10,79 @@ import { UserLocalStorageService } from '../services/user-local-storage.service'
 })
 export class AddNewItemPage implements OnInit {
     itemType: string = null;
+    moviesForm: FormGroup;
+    seriesForm: FormGroup;
+    booksForm: FormGroup;
 
     constructor(
-        private userLocalStorageService: UserLocalStorageService
+        private userLocalStorageService: UserLocalStorageService,
+        private formBuilder: FormBuilder,
+        private formGroup: FormGroup,
+        private formControl: FormControl
     ) { }
 
     ngOnInit() {
+
+        this.moviesForm = this.buildMoviesForm();
+        this.seriesForm = this.buildSeriesForm();
+        this.booksForm = this.buildBooksForm();
+
+        this.randomStuff();
+    }
+
+    buildMoviesForm() {
+        let form = new FormGroup({
+            name: new FormControl('', Validators.required),
+            release_date: new FormControl('', Validators.nullValidator),
+            opinion: new FormControl('', Validators.required),
+            rating: new FormControl('', Validators.required),
+            categories: new FormControl('', Validators.nullValidator)
+        });
+
+        return this.formBuilder.group(form.controls);
+    }
+
+    buildSeriesForm() {
+        let form = new FormGroup({
+            name: new FormControl('', Validators.required),
+            release_date: new FormControl('', Validators.nullValidator),
+            number_of_seasons: new FormControl('', Validators.required),
+            number_of_seasons_watched: new FormControl('', Validators.required),
+            opinion: new FormControl('', Validators.required),
+            rating: new FormControl('', Validators.required),
+            categories: new FormControl('', Validators.nullValidator)
+        });
+
+        return this.formBuilder.group(form.controls);
+    }
+
+    buildBooksForm() {
+        let form = new FormGroup({
+            name: new FormControl('', Validators.required),
+            release_date: new FormControl('', Validators.nullValidator),
+            opinion: new FormControl('', Validators.required),
+            rating: new FormControl('', Validators.required),
+            categories: new FormControl('', Validators.nullValidator)
+        });
+
+        return this.formBuilder.group(form.controls);
+    }
+
+    addTypeMovie() {
+        this.itemType = 'movie';
+    }
+
+    addTypeSeries() {
+        this.itemType = 'series';
+    }
+
+    addTypeBook() {
+        this.itemType = 'book';
+    }
+
+
+    // TO DELETE AFTER BACKEND IS IMPLEMENTED
+    randomStuff() {
         this.userLocalStorageService.setStorageItem(null, [
             {
                 type: 'Series',
@@ -57,17 +125,5 @@ export class AddNewItemPage implements OnInit {
                 created_in: new Date().toLocaleString()
             }
         ])
-    }
-
-    addTypeMovie() {
-        this.itemType = 'movie';
-    }
-
-    addTypeSeries() {
-        this.itemType = 'series';
-    }
-
-    addTypeBook() {
-        this.itemType = 'book';
     }
 }

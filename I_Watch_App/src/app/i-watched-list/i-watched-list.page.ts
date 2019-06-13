@@ -60,7 +60,7 @@ export class IWatchedListPage implements OnInit {
     }
 
     addNewItem() {
-        this.router.navigateByUrl('/addNewItem');
+        this.router.navigateByUrl('/add-new-item');
     }
     
 
