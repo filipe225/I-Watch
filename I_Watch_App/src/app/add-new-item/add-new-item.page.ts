@@ -16,9 +16,7 @@ export class AddNewItemPage implements OnInit {
 
     constructor(
         private userLocalStorageService: UserLocalStorageService,
-        private formBuilder: FormBuilder,
-        private formGroup: FormGroup,
-        private formControl: FormControl
+        private formBuilder: FormBuilder
     ) { }
 
     ngOnInit() {
