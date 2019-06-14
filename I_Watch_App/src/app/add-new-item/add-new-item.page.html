@@ -12,7 +12,7 @@
 <ion-content>
 
     <ion-grid>
-        <ion-row>
+        <ion-row *ngIf="itemType === null">
             <ion-col>
                 <ion-label>
                     Which type of item do you want to add?
@@ -23,7 +23,134 @@
                 <ion-button (click)="addTypeBook()">Book</ion-button>
             </ion-col>
         </ion-row>
-    </ion-grid>
 
+        <!-- FORM MOVIES -->
+        <ion-row *ngIf="itemType === 'movie'">
+            <ion-col size="12">
+                <ion-item lines="none">
+                    <h3>New Movie</h3>
+                </ion-item>
+            </ion-col>
+            <ion-col size="12">
+                <form [formGroup]="moviesForm" (ngSubmit)="formMovieSubmit()">
+                    <ion-item>
+                        <ion-label position="floating">Name</ion-label>
+                        <ion-input type="text" formControlName="movie_name"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Release Date</ion-label>
+                        <ion-input type="date" formControlName="movie_release_date"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Opinion</ion-label>
+                        <ion-textarea formControlName="movie_opinion"></ion-textarea>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Rating</ion-label>
+                        <ion-input type="number" formControlName="movie_rating" min="1" max="20" value="1"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Categories</ion-label>
+                        <ion-input type="text" formControlName="movie_categories"></ion-input>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <div style="display: flex; justify-content: space-evenly;">
+                            <ion-button type="button" name="btn_cancel_movie">Cancel</ion-button>
+                            <ion-button type="submit" name="btn_save_movie">Save Movie</ion-button>
+                        </div>
+                    </ion-item>
+                </form>
+            </ion-col>
+        </ion-row>
+
+        <!-- FORM SERIES -->
+        <ion-row *ngIf="itemType === 'series'">
+            <ion-col size="12">
+                <ion-item lines="none">
+                    <h3>New Series</h3>
+                </ion-item>
+            </ion-col>
+            <ion-col size="12">
+                <form [formGroup]="seriesForm" (ngSubmit)="formSeriesSubmit()">
+                    <ion-item>
+                        <ion-label position="floating">Name</ion-label>
+                        <ion-input type="text" formControlName="series_name"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Release Date</ion-label>
+                        <ion-input type="date" formControlName="series_release_date"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Opinion</ion-label>
+                        <ion-textarea formControlName="series_opinion"></ion-textarea>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Number of seasons</ion-label>
+                        <ion-input type="number" formControlName="series_number_of_seasons" min="0" value="0">
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Number of seasons watched</ion-label>
+                        <ion-input type="number" formControlName="series_number_of_seasons_watched" min="0" value="0">
+                        </ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Rating</ion-label>
+                        <ion-input type="number" formControlName="series_rating" min="1" max="20" value="1"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Categories</ion-label>
+                        <ion-input type="text" formControlName="series_categories"></ion-input>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <div style="display: flex; justify-content: space-evenly;">
+                            <ion-button type="button" name="btn_cancel_series">Cancel</ion-button>
+                            <ion-button type="submit" name="btn_save_series">Save Series</ion-button>
+                        </div>
+                    </ion-item>
+                </form>
+            </ion-col>
+        </ion-row>
+
+        <!-- FORM BOOKS -->
+        <ion-row *ngIf="itemType === 'book'">
+            <ion-col size="12">
+                <ion-item lines="none">
+                    <h3>New Book</h3>
+                </ion-item>
+            </ion-col>
+            <ion-col size="12">
+                <form [formGroup]="booksForm" (ngSubmit)="formBookSubmit()">
+                    <ion-item>
+                        <ion-label position="floating">Name</ion-label>
+                        <ion-input type="text" formControlName="book_name"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Release Date</ion-label>
+                        <ion-input type="date" formControlName="book_release_date"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Opinion</ion-label>
+                        <ion-textarea formControlName="book_opinion"></ion-textarea>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Rating</ion-label>
+                        <ion-input type="number" formControlName="book_rating" min="1" max="20" value="1"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Categories</ion-label>
+                        <ion-input type="text" formControlName="book_categories"></ion-input>
+                    </ion-item>
+                    <ion-item lines="none">
+                        <div style="display: flex; justify-content: space-evenly;">
+                            <ion-button type="button" name="btn_cancel_book">Cancel</ion-button>
+                            <ion-button type="submit" name="btn_save_book">Save Book</ion-button>
+                        </div>
+                    </ion-item>
+                </form>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
 
 </ion-content>

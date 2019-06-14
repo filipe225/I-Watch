@@ -6,7 +6,8 @@ import { Component, OnInit, Input } from '@angular/core';
     styleUrls: ['./input-validation-errors.component.scss'],
 })
 export class InputValidationErrorsComponent implements OnInit {
-    @Input() errorList: []
+    @Input() errorMessage: string;
+    @Input() displayError: boolean;
 
     constructor() { }
 

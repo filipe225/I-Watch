@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserLocalStorageService } from '../services/user-local-storage.service';
 
@@ -15,26 +16,51 @@ export class AddNewItemPage implements OnInit {
     booksForm: FormGroup;
 
     constructor(
+        private router: Router,
+        private activatedRoute: ActivatedRoute,
         private userLocalStorageService: UserLocalStorageService,
         private formBuilder: FormBuilder
     ) { }
 
     ngOnInit() {
 
+        // this.router.navigateByUrl('/add-new-item', {
+        //     queryParams: {
+        //         type: 'movies'
+        //     }
+        // });
+
+        this.activatedRoute.queryParams.subscribe( data => {
+            if(data.type) this.itemType = data.type;
+            else this.itemType = null;
+        });
+
+        switch(this.itemType) {
+            case 'movie':
+                break;
+            case 'series':
+                break;
+            case 'book':
+                break;
+            default: 
+                break;
+        }
+
         this.moviesForm = this.buildMoviesForm();
         this.seriesForm = this.buildSeriesForm();
         this.booksForm = this.buildBooksForm();
 
         this.randomStuff();
+
     }
 
     buildMoviesForm() {
         let form = new FormGroup({
-            name: new FormControl('', Validators.required),
-            release_date: new FormControl('', Validators.nullValidator),
-            opinion: new FormControl('', Validators.required),
-            rating: new FormControl('', Validators.required),
-            categories: new FormControl('', Validators.nullValidator)
+            movie_name: new FormControl('', Validators.required),
+            movie_release_date: new FormControl('', Validators.nullValidator),
+            movie_opinion: new FormControl('', Validators.required),
+            movie_rating: new FormControl('', Validators.required),
+            movie_categories: new FormControl('', Validators.nullValidator)
         });
 
         return this.formBuilder.group(form.controls);
@@ -42,13 +68,13 @@ export class AddNewItemPage implements OnInit {
 
     buildSeriesForm() {
         let form = new FormGroup({
-            name: new FormControl('', Validators.required),
-            release_date: new FormControl('', Validators.nullValidator),
-            number_of_seasons: new FormControl('', Validators.required),
-            number_of_seasons_watched: new FormControl('', Validators.required),
-            opinion: new FormControl('', Validators.required),
-            rating: new FormControl('', Validators.required),
-            categories: new FormControl('', Validators.nullValidator)
+            series_name: new FormControl('', Validators.required),
+            series_release_date: new FormControl('', Validators.nullValidator),
+            series_number_of_seasons: new FormControl('', Validators.required),
+            series_number_of_seasons_watched: new FormControl('', Validators.required),
+            series_opinion: new FormControl('', Validators.required),
+            series_rating: new FormControl('', Validators.required),
+            series_categories: new FormControl('', Validators.nullValidator)
         });
 
         return this.formBuilder.group(form.controls);
@@ -56,11 +82,11 @@ export class AddNewItemPage implements OnInit {
 
     buildBooksForm() {
         let form = new FormGroup({
-            name: new FormControl('', Validators.required),
-            release_date: new FormControl('', Validators.nullValidator),
-            opinion: new FormControl('', Validators.required),
-            rating: new FormControl('', Validators.required),
-            categories: new FormControl('', Validators.nullValidator)
+            book_name: new FormControl('', Validators.required),
+            book_release_date: new FormControl('', Validators.nullValidator),
+            book_opinion: new FormControl('', Validators.required),
+            book_rating: new FormControl('', Validators.required),
+            book_categories: new FormControl('', Validators.nullValidator)
         });
 
         return this.formBuilder.group(form.controls);
@@ -78,6 +104,17 @@ export class AddNewItemPage implements OnInit {
         this.itemType = 'book';
     }
 
+    formMoviewSubmit() {
+        console.log(this.moviesForm);
+    }
+
+    formSeriesSubmit() {
+        console.log(this.seriesForm);
+    }
+
+    formBookSubmit() {
+        console.log(this.booksForm);
+    }
 
     // TO DELETE AFTER BACKEND IS IMPLEMENTED
     randomStuff() {

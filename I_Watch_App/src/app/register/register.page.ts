@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { InputValidationErrorsComponent } from '../_components/input-validation-errors/input-validation-errors.component';
- 
+
 import { User } from '../_models/User';
 
 @Component({
@@ -16,7 +17,10 @@ export class RegisterPage implements OnInit {
     registrationForm: FormGroup;
     validationMessages: Object;
 
-    constructor( private formBuilder: FormBuilder) { }
+    constructor(
+        private formBuilder: FormBuilder,
+        private router: Router
+    ) { }
 
     ngOnInit() {
         let myFormGroup = new FormGroup({
@@ -30,14 +34,18 @@ export class RegisterPage implements OnInit {
             }),
             repeat_password: new FormControl('', Validators.required),
             user_email: new FormControl('', Validators.required),
-            first_name: new FormControl('', Validators.required),
-            last_name: new FormControl('', Validators.required)
+            first_name: new FormControl('', [Validators.required, Validators.minLength(3)]),
+            last_name: new FormControl('', [Validators.required, Validators.minLength(3)])
         });
 
         this.registrationForm = this.formBuilder.group(myFormGroup.controls);
         console.log("TCL: RegisterPage -> ngOnInit -> registrationForm", this.registrationForm);
 
         this.validationMessages = {
+            'email': [
+                { type: 'required', message: 'Email is Required' },
+                { type: 'pattern', message: 'Email does not fit a valid pattern' }
+            ],
             'username': [
                 { type: 'required', message: 'Username is required.' },
                 { type: 'minLength', message: 'Minimun length is 5.' }
@@ -49,23 +57,45 @@ export class RegisterPage implements OnInit {
             ],
             'repeat_password': [
                 { type: 'required', message: 'Repeat password is required' }
-            ],
-            'email': [
-                { type: 'required', message: 'Email is Required'},
-                { type: 'pattern', message: 'Email does not fit a valid pattern'}
-            ],
+            ],           
             'first_name': [
-                { type: 'required', message: 'First name is required' }
+                { type: 'required', message: 'First name is required' },
+                { type: 'minLength', message: 'First name must have at leat 3 characters.'}
             ],
             'last_name': [
-                { type: 'required', message: 'Last name is required' }
+                { type: 'required', message: 'Last name is required' },
+                { type: 'minLength', message: 'Last name must have at leat 3 characters.'}
             ]
         }
     }
 
+    getFieldErrorType(field: string) {
+        let coiso = Object.entries(this.registrationForm.get(field).errors)
+                    .filter( ([key, value]) => value === true)
+                    .map( ([key, value]) => key);
+
+        console.log(coiso);
+        return coiso;
+    }
+
+    isFieldValid(field: string) {
+        return !this.registrationForm.get(field).valid && this.registrationForm.get(field).touched;
+    }
+
     onSubmit() {
-        console.log("REGISTRATION FORM STATUS", this.registrationForm.status);
-        console.log('REGISTRATION OBJECT', this.registrationForm);
+        if (this.registrationForm.valid) {
+            console.log('registrationForm submitted');
+        } else {
+            // validate all form fields
+            Object.keys(this.registrationForm.controls).forEach(field => {
+                const control = this.registrationForm.get(field);
+                control.markAsTouched({ onlySelf: true }); // mark as touched to activate validation
+            });
+        }
+    }
+
+    cancel() {
+        this.router.navigateByUrl('/home');
     }
 
 }
