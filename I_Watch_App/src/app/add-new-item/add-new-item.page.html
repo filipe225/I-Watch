@@ -13,14 +13,20 @@
 
     <ion-grid>
         <ion-row *ngIf="itemType === null">
-            <ion-col>
-                <ion-label>
+            <ion-col size="12">
+                <h3>
                     Which type of item do you want to add?
                     {{itemType}}
-                </ion-label>
-                <ion-button (click)="addTypeMovie()">Movie</ion-button>
-                <ion-button (click)="addTypeSeries()">Series</ion-button>
-                <ion-button (click)="addTypeBook()">Book</ion-button>
+                </h3>
+            </ion-col>
+            <ion-col size="12">
+                <ion-button expand="block" (click)="addTypeMovie()">Movie</ion-button>
+            </ion-col>
+            <ion-col size="12">
+                <ion-button expand="block" (click)="addTypeSeries()">Series</ion-button>
+            </ion-col>
+            <ion-col size="12">
+                <ion-button expand="block" (click)="addTypeBook()">Book</ion-button>
             </ion-col>
         </ion-row>
 
@@ -55,7 +61,7 @@
                     </ion-item>
                     <ion-item lines="none">
                         <div style="display: flex; justify-content: space-evenly;">
-                            <ion-button type="button" name="btn_cancel_movie">Cancel</ion-button>
+                            <ion-button type="button" name="btn_cancel_movie" (click)="cancelForm()">Cancel</ion-button>
                             <ion-button type="submit" name="btn_save_movie">Save Movie</ion-button>
                         </div>
                     </ion-item>
@@ -104,7 +110,7 @@
                     </ion-item>
                     <ion-item lines="none">
                         <div style="display: flex; justify-content: space-evenly;">
-                            <ion-button type="button" name="btn_cancel_series">Cancel</ion-button>
+                            <ion-button type="button" name="btn_cancel_series" (click)="cancelForm()">Cancel</ion-button>
                             <ion-button type="submit" name="btn_save_series">Save Series</ion-button>
                         </div>
                     </ion-item>
@@ -143,7 +149,7 @@
                     </ion-item>
                     <ion-item lines="none">
                         <div style="display: flex; justify-content: space-evenly;">
-                            <ion-button type="button" name="btn_cancel_book">Cancel</ion-button>
+                            <ion-button type="button" name="btn_cancel_book" (click)="cancelForm()">Cancel</ion-button>
                             <ion-button type="submit" name="btn_save_book">Save Book</ion-button>
                         </div>
                     </ion-item>

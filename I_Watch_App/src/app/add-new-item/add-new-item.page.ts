@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserLocalStorageService } from '../services/user-local-storage.service';
+import { Review } from '../_models/Review';
 
 @Component({
     selector: 'app-add-new-item',
@@ -49,8 +50,6 @@ export class AddNewItemPage implements OnInit {
         this.moviesForm = this.buildMoviesForm();
         this.seriesForm = this.buildSeriesForm();
         this.booksForm = this.buildBooksForm();
-
-        this.randomStuff();
 
     }
 
@@ -104,61 +103,62 @@ export class AddNewItemPage implements OnInit {
         this.itemType = 'book';
     }
 
-    formMoviewSubmit() {
+    formMovieSubmit() {
         console.log(this.moviesForm);
+        const VALUES = this.moviesForm.value;
+
+        let review: Review = {
+            type: 'Movie',
+            name: VALUES.movie_name,
+            created_in: VALUES.movie_release_date,
+            opinion: VALUES.movie_opinion,
+            rating: VALUES.movie_rating,
+            seasons_watched: 0,
+            total_seasons: 0,
+            status: 'finished'
+        }
+
+        this.userLocalStorageService.addNewItemToObject(undefined, review);
+
     }
 
     formSeriesSubmit() {
         console.log(this.seriesForm);
+        const VALUES = this.seriesForm.value;
+
+        let review: Review = {
+            type: 'Movie',
+            name: VALUES.series_name,
+            created_in: VALUES.series_released_in,
+            opinion: VALUES.series_opinion,
+            rating: VALUES.series_rating,
+            total_seasons: VALUES.series_total_seasons,
+            seasons_watched: VALUES.series_seasons_watched,
+            status: 'finished'
+        }
+
+        this.userLocalStorageService.addNewItemToObject(undefined, review);
     }
 
     formBookSubmit() {
         console.log(this.booksForm);
+        const VALUES =  this.booksForm.value;
+
+        let review: Review = {
+            type: 'Movie',
+            name: VALUES.books_name,
+            created_in: VALUES.books_released_in,
+            opinion: VALUES.books_opinion,
+            rating: VALUES.books_rating,
+            total_seasons: 0,
+            seasons_watched: 0,
+            status: 'finished'
+        }
+
+        this.userLocalStorageService.addNewItemToObject(undefined, review);
     }
 
-    // TO DELETE AFTER BACKEND IS IMPLEMENTED
-    randomStuff() {
-        this.userLocalStorageService.setStorageItem(null, [
-            {
-                type: 'Series',
-                name: 'Breaking Bad',
-                rating: 20,
-                opinion: 'The best',
-                total_seasons: 5,
-                seasons_watched: 5,
-                status: 'Finished',
-                created_in: new Date().toLocaleString()
-            },
-            {
-                type: 'Series',
-                name: 'Legion',
-                rating: 15,
-                opinion: 'Great with, with some worse moments.',
-                total_seasons: 2,
-                seasons_watched: 2,
-                status: 'Running',
-                created_in: new Date().toLocaleString()
-            },
-            {
-                type: 'Movie',
-                name: 'Mad Max',
-                rating: 17,
-                opinion: 'What an action movie!',
-                total_seasons: -1,
-                seasons_watched: -1,
-                status: 'Finished',
-                created_in: new Date().toLocaleString()
-            },
-            {
-                type: 'Book',
-                name: '12 Rules for life',
-                rating: 14,
-                opinion: 'Very good book.',
-                total_seasons: -1,
-                seasons_watched: -1,
-                status: 'Finished',
-                created_in: new Date().toLocaleString()
-            }
-        ])
+    cancelForm() {
+        this.itemType = null;
     }
 }
