@@ -9,25 +9,32 @@ const routes: Routes = [
     },
     {
         path: 'home',
-        loadChildren: './home/home.module#HomePageModule'
+        loadChildren: './pages/home/home.module#HomePageModule'
     },
     {
         path: 'list',
-        loadChildren: './list/list.module#ListPageModule'
+        loadChildren: './pages/list/list.module#ListPageModule'
     },
     {
         path: 'login',
-        loadChildren: './login/login.module#LoginPageModule'
+        loadChildren: './pages/login/login.module#LoginPageModule'
     },
     {
         path: 'register',
-        loadChildren: './register/register.module#RegisterPageModule'
+        loadChildren: './pages/register/register.module#RegisterPageModule'
     },
     {
         path: 'i-watched-list',
-        loadChildren: './i-watched-list/i-watched-list.module#IWatchedListPageModule'
+        loadChildren: './pages/i-watched-list/i-watched-list.module#IWatchedListPageModule'
     },
-    { path: 'add-new-item', loadChildren: './add-new-item/add-new-item.module#AddNewItemPageModule' }
+    { 
+        path: 'add-new-item', 
+        loadChildren: './pages/add-new-item/add-new-item.module#AddNewItemPageModule' 
+    },
+    { 
+        path: 'i-watched-review-detail', 
+        loadChildren: './pages/i-watched-review-detail/i-watched-review-detail.module#IWatchedReviewDetailPageModule' 
+    }
 ];
 
 @NgModule({

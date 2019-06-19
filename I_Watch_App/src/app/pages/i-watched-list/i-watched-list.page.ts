@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserLocalStorageService } from '../services/user-local-storage.service';
-import { Review } from '../_models/Review';
+import { UserLocalStorageService } from '../../services/user-local-storage.service';
+import { Review } from '../../_models/Review';
 
 @Component({
 	selector: 'app-i-watched-list',
@@ -23,7 +23,5 @@ export class IWatchedListPage implements OnInit {
     addNewItem() {
         this.router.navigateByUrl('/add-new-item');
     }
-    
-
 
 }

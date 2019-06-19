@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { InputValidationErrorsComponent } from '../_components/input-validation-errors/input-validation-errors.component';
+import { InputValidationErrorsComponent } from '../../_components/input-validation-errors/input-validation-errors.component';
 
-import { User } from '../_models/User';
+import { User } from '../../_models/User';
 
 @Component({
     selector: 'app-register',
