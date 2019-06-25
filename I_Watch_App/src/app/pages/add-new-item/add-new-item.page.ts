@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserLocalStorageService } from '../services/user-local-storage.service';
-import { Review } from '../_models/Review';
+import { UserLocalStorageService } from '../../services/user-local-storage.service';
+import { Review } from '../../_models/Review';
 
 @Component({
     selector: 'app-add-new-item',
