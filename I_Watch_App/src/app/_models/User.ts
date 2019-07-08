@@ -5,5 +5,7 @@ export interface User {
     last_name: string,
     email: string,
     birthday: Date,
-    token: string
+    token: string,
+    friend_code: string,
+    friends: Array<Object>
 }
