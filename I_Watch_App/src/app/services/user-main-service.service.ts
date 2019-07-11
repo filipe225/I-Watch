@@ -20,7 +20,7 @@ export class UserMainServiceService {
         return this.http.get(this.api_base_url + '/login');
     }
 
-    registerUser(userData: User) {
+    registerUser(userData: User, passwordData: Object) {
         return this.http.post(this.api_base_url + '/registration', { userData });
     }
 

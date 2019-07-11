@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserReviewsStore } from "../../store/user-reviews-store";
 
 @Component({
     selector: 'app-home',
@@ -8,9 +9,13 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
 
-    constructor(private router: Router) { }
+    constructor(
+        private router: Router,
+        private userReviewsStore: UserReviewsStore
+    ) { }
 
     useOfflineMode() {
+        this.userReviewsStore.hasInternet = false;
         this.router.navigateByUrl('/i-watched-list');
     }
 }

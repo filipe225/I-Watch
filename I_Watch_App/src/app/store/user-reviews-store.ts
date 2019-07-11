@@ -11,6 +11,18 @@ import { UserLocalStorageService } from '../services/user-local-storage.service'
   })
 export class UserReviewsStore {
 
+    // IS INTERNET ON?
+    private readonly _has_internet = new BehaviorSubject<Boolean>(false);
+    readonly has_internet$ = this._has_internet.asObservable();
+
+    get hasInternet() {
+        return this._has_internet.getValue();
+    }
+
+    set hasInternet(val: Boolean) {
+        this._has_internet.next(val);
+    }
+
     // USER DATA
     private readonly _user_data = new BehaviorSubject<User>(undefined);
     readonly user_data$ = this._user_data.asObservable();
@@ -18,6 +30,7 @@ export class UserReviewsStore {
     // USER REVIEWS
     private readonly _user_reviews = new BehaviorSubject<Review[]>([]);
     readonly user_reviews$ = this._user_reviews.asObservable();
+
 
     // USER DATA FUNCTIONS
     get userData() {
@@ -31,6 +44,28 @@ export class UserReviewsStore {
     // USER REVIEWS FUNCTIONS
     get userReviews() {
         return this._user_reviews.getValue();
+    }
+
+    set userReviews(val: Review[]) {
+        this._user_reviews.next(val);
+    }
+
+    addUserReview(newReview: Review) {
+
+        if(this.hasInternet) {
+
+        } else {
+            
+        }
+
+        try {
+            
+        } catch (error) {
+            
+        }
+        if(newReview) {
+
+        }
     }
 
     deleteUserReview(id: number) {

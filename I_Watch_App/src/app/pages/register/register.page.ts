@@ -2,15 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { UserMainServiceService } from "../../services/user-main-service.service";
 import { InputValidationErrorsComponent } from '../../_components/input-validation-errors/input-validation-errors.component';
-
 import { User } from '../../_models/User';
 
 @Component({
     selector: 'app-register',
     templateUrl: './register.page.html',
     styleUrls: ['./register.page.scss'],
-    providers: [InputValidationErrorsComponent]
+    providers: [InputValidationErrorsComponent, UserMainServiceService]
 })
 export class RegisterPage implements OnInit {
     user: User;
@@ -19,7 +19,8 @@ export class RegisterPage implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private router: Router
+        private router: Router,
+        private userMainService: UserMainServiceService
     ) { }
 
     ngOnInit() {
@@ -82,9 +83,31 @@ export class RegisterPage implements OnInit {
         return !this.registrationForm.get(field).valid && this.registrationForm.get(field).touched;
     }
 
-    onSubmit() {
+    onSubmit(e) {
+        e.preventDefault();
+        
         if (this.registrationForm.valid) {
-            console.log('registrationForm submitted');
+            console.log('registrationForm submitted', this.registrationForm);
+            
+            const values = this.registrationForm.value;
+
+            this.user.first_name = values.first_name.value;
+            this.user.last_name = values.last_name.value;
+            this.user.email = values.email.value;
+            this.user.username = values.username.value;
+            this.user.friend_code = '';
+            this.user.birthday = null;
+            this.user.token = '';
+            this.user.friends = [];
+
+            let passwordData = {
+                password: values.password.value,
+                repeat_password: values.repeat_password.value
+            };
+
+            console.log("user data", this.user, passwordData);
+            this.userMainService.registerUser(this.user, passwordData);
+
         } else {
             // validate all form fields
             Object.keys(this.registrationForm.controls).forEach(field => {
