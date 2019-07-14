@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../_models/User';
 import { Review } from '../_models/Review';
 
@@ -21,7 +21,16 @@ export class UserMainServiceService {
     }
 
     registerUser(userData: User, passwordData: Object) {
-        return this.http.post(this.api_base_url + '/registration', { userData });
+        console.log(this.api_base_url);
+
+        const headers = new HttpHeaders()
+          .set('Content-Type', 'application/json');
+
+        return this.http.post(
+            'https://showtime-deck.herokuapp.com/user_registration', 
+            { userData: JSON.stringify(userData), passwordData: JSON.stringify(passwordData) }, 
+            { headers: headers }
+        );
     }
 
     getUserData(user_id: number, user_token: string) {

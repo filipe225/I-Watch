@@ -15,7 +15,7 @@
         <ion-row>
 
             <ion-col size="12" size-lg="6" offset-lg="3">
-                <form [formGroup]="registrationForm" (ngSubmit)="onSubmit(event)">
+                <form [formGroup]="registrationForm">
                     <ion-item>
                         <ion-label position="floating">Email</ion-label>
                         <ion-input type="email" formControlName="user_email"></ion-input>
@@ -102,12 +102,9 @@
                         </ng-container>
                     </div>
 
-                    <ion-item v-cloak="true">
-                        <ion-label>Terms of service</ion-label>
-                    </ion-item>
                     <div>
                         <ion-button type="button" id="btn_cancel" (click)="cancel()">Cancel</ion-button>
-                        <ion-button type="submit" id="btn_register">Register</ion-button>
+                        <ion-button type="button" id="btn_register" (click)="registerNewUser()">Register</ion-button>
                     </div>
                 </form>
             </ion-col>

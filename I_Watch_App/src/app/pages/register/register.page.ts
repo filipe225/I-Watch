@@ -13,7 +13,7 @@ import { User } from '../../_models/User';
     providers: [InputValidationErrorsComponent, UserMainServiceService]
 })
 export class RegisterPage implements OnInit {
-    user: User;
+    newUserData: any;
     registrationForm: FormGroup;
     validationMessages: Object;
 
@@ -21,7 +21,9 @@ export class RegisterPage implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private userMainService: UserMainServiceService
-    ) { }
+    ) { 
+        this.newUserData = {} as User;
+    }
 
     ngOnInit() {
         let myFormGroup = new FormGroup({
@@ -83,30 +85,32 @@ export class RegisterPage implements OnInit {
         return !this.registrationForm.get(field).valid && this.registrationForm.get(field).touched;
     }
 
-    onSubmit(e) {
-        e.preventDefault();
-        
+    registerNewUser() {    
         if (this.registrationForm.valid) {
             console.log('registrationForm submitted', this.registrationForm);
             
             const values = this.registrationForm.value;
 
-            this.user.first_name = values.first_name.value;
-            this.user.last_name = values.last_name.value;
-            this.user.email = values.email.value;
-            this.user.username = values.username.value;
-            this.user.friend_code = '';
-            this.user.birthday = null;
-            this.user.token = '';
-            this.user.friends = [];
+            console.log("user", this.newUserData);
+
+            this.newUserData.first_name = values.first_name;
+            this.newUserData.last_name = values.last_name;
+            this.newUserData.email = values.user_email;
+            this.newUserData.username = values.username;
+            this.newUserData.friend_code = '';
+            this.newUserData.birthday = null;
+            this.newUserData.token = '';
+            this.newUserData.friends = [];
 
             let passwordData = {
-                password: values.password.value,
-                repeat_password: values.repeat_password.value
+                password: values.password,
+                repeat_password: values.repeat_password
             };
 
-            console.log("user data", this.user, passwordData);
-            this.userMainService.registerUser(this.user, passwordData);
+            console.log("user data", this.newUserData, passwordData);
+            const resp = this.userMainService.registerUser(this.newUserData, passwordData).toPromise();
+            resp.then( data => console.log(data))
+                .catch( error => console.log(error));
 
         } else {
             // validate all form fields
