@@ -102,15 +102,19 @@
                         </ng-container>
                     </div>
 
-                    <div>
-                        <ion-button type="button" id="btn_cancel" (click)="cancel()">Cancel</ion-button>
-                        <ion-button type="button" id="btn_register" (click)="registerNewUser()">Register</ion-button>
+                    <div style="margin: 15px 0">
+                        <ion-button type="button" id="btn_cancel" (click)="cancel()" fill="outline" size="default" color="secondary">Cancel</ion-button>
+                        <ion-button type="button" id="btn_register" (click)="registerNewUser()" color="primary">Register</ion-button>
                     </div>
                 </form>
             </ion-col>
 
             <ion-col size="12" size-lg="6" offset-lg="3" margin>
-                <ion-label>Already registered? <a href="/login"><b>Go to login</b></a></ion-label>
+                <div class="ion-text-center">
+                    <ion-label>Already registered? <br> 
+                        <a href="/login"><b>Go to login</b></a>
+                    </ion-label>
+                </div>
             </ion-col>
 
         </ion-row>

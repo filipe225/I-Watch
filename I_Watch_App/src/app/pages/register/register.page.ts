@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ToastController } from "@ionic/angular";
 
 import { UserMainServiceService } from "../../services/user-main-service.service";
 import { InputValidationErrorsComponent } from '../../_components/input-validation-errors/input-validation-errors.component';
@@ -20,7 +21,8 @@ export class RegisterPage implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
-        private userMainService: UserMainServiceService
+        private userMainService: UserMainServiceService,
+        private toastController: ToastController
     ) { 
         this.newUserData = {} as User;
     }
@@ -109,8 +111,18 @@ export class RegisterPage implements OnInit {
 
             console.log("user data", this.newUserData, passwordData);
             const resp = this.userMainService.registerUser(this.newUserData, passwordData).toPromise();
-            resp.then( data => console.log(data))
-                .catch( error => console.log(error));
+            resp
+                .then( respData => {
+                    console.log(respData);
+                    this.presentToast({
+                        header: 'Registration response',
+                        message: respData["message"],
+                        duration: 3000
+                    })
+                })
+                .catch( error => {
+                    console.log(error)
+                });
 
         } else {
             // validate all form fields
@@ -123,6 +135,16 @@ export class RegisterPage implements OnInit {
 
     cancel() {
         this.router.navigateByUrl('/home');
+    }
+
+    async presentToast(obj) {
+        const toast = await this.toastController.create({
+            header: obj.header ? obj.header : '',
+            message: obj.message ? obj.message : 'erro',
+            duration: obj.duration ? obj.duration : 2000,
+            position: 'bottom'
+        });
+        toast.present();
     }
 
 }

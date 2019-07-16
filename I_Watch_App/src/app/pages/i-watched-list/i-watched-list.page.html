@@ -31,6 +31,24 @@
         </ion-row>
     </ion-grid>
 
+    <ion-tabs>
+    <!-- Tab bar -->
+        <ion-tab-bar slot="bottom">
+            <ion-tab-button tab="all">
+                <ion-icon name="list"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button tab="movies">
+                <ion-icon name="film"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button tab="series">
+                <ion-icon name="videocam"></ion-icon>
+            </ion-tab-button>
+            <ion-tab-button tab="books">
+                <ion-icon name="book"></ion-icon>
+            </ion-tab-button>
+        </ion-tab-bar>
+    </ion-tabs>
+
 </ion-content>
 
 <button class="button button-float" (click)="addNewItem()">
