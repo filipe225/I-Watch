@@ -34,7 +34,11 @@ const routes: Routes = [
     { 
         path: 'i-watched-review-detail', 
         loadChildren: './pages/i-watched-review-detail/i-watched-review-detail.module#IWatchedReviewDetailPageModule' 
-    }
+    },
+  { path: 'user-profile', loadChildren: './pages/user-profile/user-profile.module#UserProfilePageModule' },
+  { path: 'friends-list', loadChildren: './pages/friends-list/friends-list.module#FriendsListPageModule' },
+  { path: 'review-detail', loadChildren: './pages/review-detail/review-detail.module#ReviewDetailPageModule' },
+  { path: 'friend-i-watched-list', loadChildren: './pages/friend-i-watched-list/friend-i-watched-list.module#FriendIWatchedListPageModule' }
 ];
 
 @NgModule({
