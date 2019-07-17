@@ -1,4 +1,5 @@
 export interface Book {
+    type: string,
     name: string,
     released_in: string,
     author: string,

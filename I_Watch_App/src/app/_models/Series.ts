@@ -1,4 +1,5 @@
 export interface Series {
+    type: string,
     name: string,
     released_in: string,
     active: boolean,

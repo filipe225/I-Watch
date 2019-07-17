@@ -12,14 +12,14 @@ import { UserLocalStorageService } from '../services/user-local-storage.service'
 export class UserReviewsStore {
 
     // IS INTERNET ON?
-    private readonly _has_internet = new BehaviorSubject<Boolean>(false);
+    private readonly _has_internet = new BehaviorSubject<boolean>(false);
     readonly has_internet$ = this._has_internet.asObservable();
 
     get hasInternet() {
         return this._has_internet.getValue();
     }
 
-    set hasInternet(val: Boolean) {
+    set hasInternet(val: boolean) {
         this._has_internet.next(val);
     }
 

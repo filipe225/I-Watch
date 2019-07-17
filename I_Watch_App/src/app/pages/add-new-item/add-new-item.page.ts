@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserLocalStorageService } from '../../services/user-local-storage.service';
+import { UserReviewsStore } from '../../store/user-reviews-store';
 import { Review } from '../../_models/Review';
+import { Movie } from 'src/app/_models/Movie';
+import { Series } from 'src/app/_models/Series';
+import { Book } from 'src/app/_models/Book';
 
 @Component({
     selector: 'app-add-new-item',
@@ -15,12 +19,14 @@ export class AddNewItemPage implements OnInit {
     moviesForm: FormGroup;
     seriesForm: FormGroup;
     booksForm: FormGroup;
+    hasInternet: boolean;
 
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private userLocalStorageService: UserLocalStorageService,
-        private formBuilder: FormBuilder
+        private formBuilder: FormBuilder,
+        private userStore: UserReviewsStore
     ) { }
 
     ngOnInit() {
@@ -30,6 +36,8 @@ export class AddNewItemPage implements OnInit {
         //         type: 'movies'
         //     }
         // });
+
+        this.hasInternet = this.userStore.hasInternet;
 
         this.activatedRoute.queryParams.subscribe( data => {
             if(data.type) this.itemType = data.type;
@@ -107,18 +115,17 @@ export class AddNewItemPage implements OnInit {
         console.log(this.moviesForm);
         const VALUES = this.moviesForm.value;
 
-        let review: Review = {
+        let movie_review: Movie = {
             type: 'Movie',
             name: VALUES.movie_name,
-            created_in: VALUES.movie_release_date,
+            director: '',
+            released_in: VALUES.movie_release_date,
             opinion: VALUES.movie_opinion,
             rating: VALUES.movie_rating,
-            seasons_watched: 0,
-            total_seasons: 0,
-            status: 'finished'
+            watched: true // TODO
         }
 
-        this.userLocalStorageService.addNewItemToObject(review);
+        this.userLocalStorageService.addNewItemToObject(movie_review);
 
     }
 
@@ -126,36 +133,35 @@ export class AddNewItemPage implements OnInit {
         console.log(this.seriesForm);
         const VALUES = this.seriesForm.value;
 
-        let review: Review = {
-            type: 'Movie',
+        let series_review: Series = {
+            type: 'Series',
             name: VALUES.series_name,
-            created_in: VALUES.series_released_in,
+            released_in: VALUES.series_released_in,
             opinion: VALUES.series_opinion,
             rating: VALUES.series_rating,
-            total_seasons: VALUES.series_total_seasons,
-            seasons_watched: VALUES.series_seasons_watched,
-            status: 'finished'
+            seasons: VALUES.series_total_seasons,
+            active: true, // TODO
+            watched: true // TODO
         }
 
-        this.userLocalStorageService.addNewItemToObject(review);
+        this.userLocalStorageService.addNewItemToObject(series_review);
     }
 
     formBookSubmit() {
         console.log(this.booksForm);
         const VALUES =  this.booksForm.value;
 
-        let review: Review = {
-            type: 'Movie',
+        let book_review: Book = {
+            type: 'Book',
             name: VALUES.books_name,
-            created_in: VALUES.books_released_in,
+            released_in: VALUES.books_released_in,
             opinion: VALUES.books_opinion,
             rating: VALUES.books_rating,
-            total_seasons: 0,
-            seasons_watched: 0,
-            status: 'finished'
+            author: '', // TODO
+            read: true // TODO
         }
 
-        this.userLocalStorageService.addNewItemToObject(review);
+        this.userLocalStorageService.addNewItemToObject(book_review);
     }
 
     cancel() {
