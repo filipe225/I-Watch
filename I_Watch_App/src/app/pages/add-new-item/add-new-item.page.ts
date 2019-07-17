@@ -118,7 +118,7 @@ export class AddNewItemPage implements OnInit {
             status: 'finished'
         }
 
-        this.userLocalStorageService.addNewItemToObject(undefined, review);
+        this.userLocalStorageService.addNewItemToObject(review);
 
     }
 
@@ -137,7 +137,7 @@ export class AddNewItemPage implements OnInit {
             status: 'finished'
         }
 
-        this.userLocalStorageService.addNewItemToObject(undefined, review);
+        this.userLocalStorageService.addNewItemToObject(review);
     }
 
     formBookSubmit() {
@@ -155,7 +155,11 @@ export class AddNewItemPage implements OnInit {
             status: 'finished'
         }
 
-        this.userLocalStorageService.addNewItemToObject(undefined, review);
+        this.userLocalStorageService.addNewItemToObject(review);
+    }
+
+    cancel() {
+        this.router.navigateByUrl('/i-watched-list');
     }
 
     cancelForm() {

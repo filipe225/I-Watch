@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class UserLocalStorageService {
     default_item_name: string = 'user-items';
+    helper_object_name: string = 'actions-to-update';
+
     default_items_object = [
         {
             type: 'Series',
@@ -70,13 +72,31 @@ export class UserLocalStorageService {
         return localStorage.removeItem(itemName || this.default_item_name);
     }
 
-    addNewItemToObject(itemName, newItem) {
-        let items = JSON.parse(localStorage.getItem(itemName || this.default_item_name));
+    addNewItemToObject(newItem) {
+        let items = JSON.parse(localStorage.getItem(this.default_item_name));
         if(Array.isArray(items)) {
             items.push(newItem)
         }
+        this.setStorageItem(this.default_item_name, items);
 
-        this.setStorageItem(itemName, items);
+        let helper_items = this.getStorageItem(this.helper_object_name);
+        if(Array.isArray(helper_items)) {
+            newItem.action_type = 'insert';
+            helper_items.push(newItem);
+        } else {
+            helper_items = [];
+            newItem.action_type = 'insert';
+            helper_items.push(newItem);
+        }
+        this.setStorageItem(this.helper_object_name, helper_items);
+
     }
 
+    clearHelperItems() {
+        localStorage.setItem(this.helper_object_name, null);
+    }
+
+    getHelperItems() {
+        return JSON.parse(localStorage.getItem(this.helper_object_name));
+    }
 }

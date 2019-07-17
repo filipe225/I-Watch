@@ -6,6 +6,11 @@
         <ion-title>
             I Watched
         </ion-title>
+        <ion-buttons slot="end">
+            <button class="button" (click)="addNewItem()">
+                <ion-icon name="add" class="fit-icon"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
@@ -50,7 +55,3 @@
     </ion-tabs>
 
 </ion-content>
-
-<button class="button button-float" (click)="addNewItem()">
-    <ion-icon name="add" class="fit-icon"></ion-icon>
-</button>

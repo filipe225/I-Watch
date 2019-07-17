@@ -17,6 +17,12 @@ export class IWatchedListPage implements OnInit {
         private userLocalStorageService: UserLocalStorageService) {	}
 
 	ngOnInit() {
+
+        const items_to_sync = this.userLocalStorageService.getHelperItems();
+        if(items_to_sync) {
+            console.log("TCL: IWatchedListPage -> ngOnInit -> items_to_sync", items_to_sync)
+        }
+
         this.all_reviews = this.userLocalStorageService.getStorageItem();
     }
 

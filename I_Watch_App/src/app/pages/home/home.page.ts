@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserReviewsStore } from "../../store/user-reviews-store";
 
@@ -7,12 +7,16 @@ import { UserReviewsStore } from "../../store/user-reviews-store";
     templateUrl: 'home.page.html',
     styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
 
     constructor(
         private router: Router,
         private userReviewsStore: UserReviewsStore
     ) { }
+
+    ngOnInit(): void {
+        console.log("Internet On? ", navigator.onLine);
+    }
 
     useOfflineMode() {
         this.userReviewsStore.hasInternet = false;
