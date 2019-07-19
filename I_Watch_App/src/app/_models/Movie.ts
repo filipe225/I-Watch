@@ -5,5 +5,6 @@ export interface Movie {
     director: string,
     rating: number,
     opinion: string,
-    watched: boolean
+    watched: boolean,
+    genres: Array<String>
 }

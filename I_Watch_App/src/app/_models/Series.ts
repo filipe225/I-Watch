@@ -6,5 +6,6 @@ export interface Series {
     rating: number,
     opinion: string,
     watched: boolean,
-    seasons: number
+    seasons: number,
+    genres: Array<String>
 }

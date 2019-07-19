@@ -43,8 +43,12 @@
             <ion-col size="12">
                 <form [formGroup]="moviesForm" (ngSubmit)="formMovieSubmit()">
                     <ion-item>
-                        <ion-label position="floating">Name</ion-label>
+                        <ion-label position="floating">Name *</ion-label>
                         <ion-input type="text" formControlName="movie_name"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Director</ion-label>
+                        <ion-input type="text" formControlName="movie_director"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="floating">Release Date</ion-label>
@@ -55,12 +59,16 @@
                         <ion-textarea formControlName="movie_opinion"></ion-textarea>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="floating">Rating</ion-label>
+                        <ion-label position="floating">Rating *</ion-label>
                         <ion-input type="number" formControlName="movie_rating" min="1" max="20" value="1"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="floating">Categories</ion-label>
-                        <ion-input type="text" formControlName="movie_categories"></ion-input>
+                        <ion-label position="floating">Genres</ion-label>
+                        <ion-input type="text" formControlName="movie_genres"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Watched Movie ?</ion-label>
+                        <ion-checkbox checked="false" formControlName="movie_watched"></ion-checkbox>
                     </ion-item>
                     <ion-item lines="none">
                         <div style="display: flex; justify-content: space-evenly;">
@@ -108,8 +116,12 @@
                         <ion-input type="number" formControlName="series_rating" min="1" max="20" value="1"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="floating">Categories</ion-label>
-                        <ion-input type="text" formControlName="series_categories"></ion-input>
+                        <ion-label position="floating">Genres</ion-label>
+                        <ion-input type="text" formControlName="series_genres"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Watched Series ?</ion-label>
+                        <ion-checkbox checked="false" formControlName="series_watched"></ion-checkbox>
                     </ion-item>
                     <ion-item lines="none">
                         <div style="display: flex; justify-content: space-evenly;">
@@ -147,8 +159,12 @@
                         <ion-input type="number" formControlName="book_rating" min="1" max="20" value="1"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="floating">Categories</ion-label>
-                        <ion-input type="text" formControlName="book_categories"></ion-input>
+                        <ion-label position="floating">Genres</ion-label>
+                        <ion-input type="text" formControlName="book_genres"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">Read Book ?</ion-label>
+                        <ion-checkbox checked="false" formControlName="book_read"></ion-checkbox>
                     </ion-item>
                     <ion-item lines="none">
                         <div style="display: flex; justify-content: space-evenly;">

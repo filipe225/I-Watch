@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserLocalStorageService } from '../../services/user-local-storage.service';
 import { UserReviewsStore } from '../../store/user-reviews-store';
-import { Review } from '../../_models/Review';
 import { Movie } from 'src/app/_models/Movie';
 import { Series } from 'src/app/_models/Series';
 import { Book } from 'src/app/_models/Book';
@@ -64,10 +63,12 @@ export class AddNewItemPage implements OnInit {
     buildMoviesForm() {
         let form = new FormGroup({
             movie_name: new FormControl('', Validators.required),
+            movie_director: new FormControl('', Validators.nullValidator), 
             movie_release_date: new FormControl('', Validators.nullValidator),
             movie_opinion: new FormControl('', Validators.required),
             movie_rating: new FormControl('', Validators.required),
-            movie_categories: new FormControl('', Validators.nullValidator)
+            movie_genres: new FormControl('', Validators.nullValidator),
+            movie_watched: new FormControl('', Validators.requiredTrue)
         });
 
         return this.formBuilder.group(form.controls);
@@ -81,7 +82,8 @@ export class AddNewItemPage implements OnInit {
             series_number_of_seasons_watched: new FormControl('', Validators.required),
             series_opinion: new FormControl('', Validators.required),
             series_rating: new FormControl('', Validators.required),
-            series_categories: new FormControl('', Validators.nullValidator)
+            series_genres: new FormControl('', Validators.nullValidator),
+            series_watched: new FormControl('', Validators.requiredTrue)
         });
 
         return this.formBuilder.group(form.controls);
@@ -93,7 +95,8 @@ export class AddNewItemPage implements OnInit {
             book_release_date: new FormControl('', Validators.nullValidator),
             book_opinion: new FormControl('', Validators.required),
             book_rating: new FormControl('', Validators.required),
-            book_categories: new FormControl('', Validators.nullValidator)
+            book_genres: new FormControl('', Validators.nullValidator),
+            book_read: new FormControl('', Validators.requiredTrue)
         });
 
         return this.formBuilder.group(form.controls);
@@ -122,6 +125,7 @@ export class AddNewItemPage implements OnInit {
             released_in: VALUES.movie_release_date,
             opinion: VALUES.movie_opinion,
             rating: VALUES.movie_rating,
+            genres: [],
             watched: true // TODO
         }
 
@@ -141,7 +145,8 @@ export class AddNewItemPage implements OnInit {
             rating: VALUES.series_rating,
             seasons: VALUES.series_total_seasons,
             active: true, // TODO
-            watched: true // TODO
+            watched: true, // TODO
+            genres: []
         }
 
         this.userLocalStorageService.addNewItemToObject(series_review);
@@ -158,7 +163,8 @@ export class AddNewItemPage implements OnInit {
             opinion: VALUES.books_opinion,
             rating: VALUES.books_rating,
             author: '', // TODO
-            read: true // TODO
+            read: true, // TODO
+            genres: []
         }
 
         this.userLocalStorageService.addNewItemToObject(book_review);

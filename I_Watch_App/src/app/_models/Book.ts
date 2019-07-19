@@ -5,5 +5,6 @@ export interface Book {
     author: string,
     rating: number,
     opinion: string,
-    read: boolean
+    read: boolean,
+    genres: Array<String>
 }
