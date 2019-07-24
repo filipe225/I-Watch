@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UserLocalStorageService {
     default_item_name: string = 'user-items';
@@ -50,7 +51,7 @@ export class UserLocalStorageService {
         }
     ];
 
-    constructor() { }
+    constructor() {}
 
     getStorageItem(itemName?: string) {
         return JSON.parse(localStorage.getItem(itemName || this.default_item_name)) || null;
@@ -58,7 +59,7 @@ export class UserLocalStorageService {
 
     setStorageItem(itemName: string, itemsObject) {
         try {
-            if(!itemsObject) itemsObject = this.default_items_object;
+            if (!itemsObject) itemsObject = this.default_items_object;
             Object.defineProperty(itemsObject, 'edited', { value: new Date().toISOString() });
             localStorage.setItem(itemName || this.default_item_name, JSON.stringify(itemsObject))
             return 200;
@@ -73,14 +74,20 @@ export class UserLocalStorageService {
     }
 
     addNewItemToObject(newItem) {
+        let time = new Date().toDateString();
+        let new_hash = Md5.hashStr(time);
+        console.log("TCL: UserLocalStorageService -> addNewItemToObject -> new_hash", new_hash)
+
+        newItem.id = new_hash;
+
         let items = JSON.parse(localStorage.getItem(this.default_item_name));
-        if(Array.isArray(items)) {
+        if (Array.isArray(items)) {
             items.push(newItem)
         }
         this.setStorageItem(this.default_item_name, items);
 
         let helper_items = this.getStorageItem(this.helper_object_name);
-        if(Array.isArray(helper_items)) {
+        if (Array.isArray(helper_items)) {
             newItem.action_type = 'insert';
             helper_items.push(newItem);
         } else {

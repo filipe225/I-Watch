@@ -10,7 +10,8 @@ import { Review } from '../../_models/Review';
     providers: [UserLocalStorageService]
 })
 export class IWatchedListPage implements OnInit {
-    all_reviews: any
+    all_reviews: any;
+    reviews_to_display: any;
 
 	constructor(
         private router: Router,
@@ -24,10 +25,27 @@ export class IWatchedListPage implements OnInit {
         }
 
         this.all_reviews = this.userLocalStorageService.getStorageItem();
+        this.reviews_to_display = this.all_reviews.slice();
     }
 
     addNewItem() {
         this.router.navigateByUrl('/add-new-item');
+    }
+
+    displayAllReviews() {
+        this.reviews_to_display = this.all_reviews;
+    }
+
+    displayMoviesReviews() {
+        this.reviews_to_display = this.all_reviews.filter( review => review.type === 'Movie');
+    }
+
+    displaySeriesReviews() {
+        this.reviews_to_display = this.all_reviews.filter( review => review.type === 'Series');
+    }
+
+    displayBooksReviews() {
+        this.reviews_to_display = this.all_reviews.filter( review => review.type === 'Book');
     }
 
 }

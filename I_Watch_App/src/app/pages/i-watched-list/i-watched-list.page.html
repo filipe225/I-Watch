@@ -19,7 +19,7 @@
     <ion-grid>
         <ion-row>
             <ion-col size-md="6">
-                <ion-card *ngFor="let review of all_reviews">
+                <ion-card *ngFor="let review of reviews_to_display">
                     <ion-card-header>
                         <ion-card-subtitle>{{ review.type }}</ion-card-subtitle>
                         <ion-card-title>{{ review.name }}</ion-card-title>
@@ -34,24 +34,25 @@
                 </ion-card>
             </ion-col>
         </ion-row>
-    </ion-grid>
 
-    <ion-tabs>
-    <!-- Tab bar -->
-        <ion-tab-bar slot="bottom">
-            <ion-tab-button tab="all">
-                <ion-icon name="list"></ion-icon>
-            </ion-tab-button>
-            <ion-tab-button tab="movies">
-                <ion-icon name="film"></ion-icon>
-            </ion-tab-button>
-            <ion-tab-button tab="series">
-                <ion-icon name="videocam"></ion-icon>
-            </ion-tab-button>
-            <ion-tab-button tab="books">
-                <ion-icon name="book"></ion-icon>
-            </ion-tab-button>
-        </ion-tab-bar>
-    </ion-tabs>
+        <ion-tabs slots="bottom">
+            <!-- Tab bar -->
+            <ion-tab-bar slot="bottom" selectedTab="">
+                <ion-tab-button tab="all">
+                    <ion-icon name="list"></ion-icon>
+                </ion-tab-button>
+                <ion-tab-button tab="movies">
+                    <ion-icon name="film"></ion-icon>
+                </ion-tab-button>
+                <ion-tab-button tab="series">
+                    <ion-icon name="videocam"></ion-icon>
+                </ion-tab-button>
+                <ion-tab-button tab="books">
+                    <ion-icon name="book"></ion-icon>
+                </ion-tab-button>
+            </ion-tab-bar>
+        </ion-tabs>
+
+    </ion-grid>
 
 </ion-content>
