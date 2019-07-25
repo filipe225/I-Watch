@@ -28,6 +28,7 @@ export class RegisterPage implements OnInit {
     }
 
     ngOnInit() {
+        let email_regexp = new RegExp("[^@]+@[^\.]+\..+", "gi");
         let myFormGroup = new FormGroup({
             username: new FormControl('', {
                 validators: [Validators.required, Validators.minLength(5)],
@@ -37,10 +38,23 @@ export class RegisterPage implements OnInit {
                 validators: [Validators.required, Validators.minLength(6), Validators.maxLength(20)],
                 updateOn: 'change'
             }),
-            repeat_password: new FormControl('', Validators.required),
-            user_email: new FormControl('', Validators.required),
-            first_name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-            last_name: new FormControl('', [Validators.required, Validators.minLength(3)])
+            repeat_password: new FormControl('', {
+                validators: [Validators.required], 
+                updateOn: 'change'
+            }),
+            user_email: new FormControl('', {
+                validators: [Validators.required, Validators.pattern(email_regexp)],
+                updateOn: 'change'
+            
+            }),
+            first_name: new FormControl('', {
+                validators: [Validators.required, Validators.minLength(3)],
+                updateOn: 'change'
+            }),
+            last_name: new FormControl('', {
+                validators: [Validators.required, Validators.minLength(3)],
+                updateOn: 'change'
+            })
         });
 
         this.registrationForm = this.formBuilder.group(myFormGroup.controls);
@@ -61,7 +75,8 @@ export class RegisterPage implements OnInit {
                 { type: 'maxLength', message: 'Maximum length is 20' }
             ],
             'repeat_password': [
-                { type: 'required', message: 'Repeat password is required' }
+                { type: 'required', message: 'Repeat password is required' },
+                { type: 'comparison', message: 'Passwords do not match!' }
             ],           
             'first_name': [
                 { type: 'required', message: 'First name is required' },
