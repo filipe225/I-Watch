@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from "@ionic/angular";
 
+import { UserMainServiceService } from "../../services/user-main-service.service";
+import { UserReviewsStore } from "../../store/user-reviews-store";
+
 
 @Component({
     selector: 'app-login',
@@ -25,7 +28,8 @@ export class LoginPage implements OnInit {
     constructor(
         private formBuilder: FormBuilder,
         private router: Router,
-        private toastController: ToastController
+        private toastController: ToastController,
+        private store: UserReviewsStore
     ) {}
 
     ngOnInit() {
@@ -45,15 +49,19 @@ export class LoginPage implements OnInit {
     }
 
     loginSubmit() {
-        let username = this.loginFormInput.username;
-        let password = this.loginFormInput.password;
+        // let username = this.loginFormInput.username;
+        // let password = this.loginFormInput.password;
         
-        console.log('username & password: ', username, password);
+        // console.log('username & password: ', username, password);
 
-        let exists = this.mockUsers.some( obj => obj.username === username && obj.password === password);
-        console.log("exists", exists);
+        // let exists = this.mockUsers.some( obj => obj.username === username && obj.password === password);
+        // console.log("exists", exists);
 
-        //this.router.navigateByUrl('/i-watched-list');
+        let result = this.store.loginUser(this.loginFormInput.username, this.loginFormInput.password);
+        if(result) {
+            this.router.navigateByUrl('/sync-data');
+        }
+        
     }
 
     async presentToast(obj) {

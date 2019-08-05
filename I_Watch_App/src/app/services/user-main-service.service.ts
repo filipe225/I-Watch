@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../_models/User';
-import { Review } from '../_models/Review';
+import { Movie } from '../_models/Movie';
+import { Book } from "../_models/Book";
+import { Series } from "../_models/Series";
 
 
 @Injectable({
@@ -9,26 +11,35 @@ import { Review } from '../_models/Review';
 })
 export class UserMainServiceService {
 
-    private readonly api_base_url: string = "www.showtime-deck.herokuapp.com"
+    private readonly api_base_url: string = "http://localhost:8080"; //"www.showtime-deck.herokuapp.com"
 
 
     constructor(private http: HttpClient) {
 
     }
 
-    loginUser(user: any) {
-        return this.http.get(this.api_base_url + '/login');
+    loginUser(username: string, password: string) {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+        return this.http.post(this.api_base_url + '/auth/login', {
+                username: username,
+                password: password
+            }, 
+            {
+                responseType: "json",
+                withCredentials: false,
+                observe: 'response'
+            });
     }
 
     registerUser(userData: User, passwordData: Object) {
         console.log(this.api_base_url);
 
-        const headers = new HttpHeaders()
-          .set('Content-Type', 'application/json');
-
+        const headers = new HttpHeaders().set('Content-Type', 'application/json');
+        //'https://showtime-deck.herokuapp.com/user_registration'
         return this.http.post(
-            'https://showtime-deck.herokuapp.com/user_registration', 
-            { userData: JSON.stringify(userData), passwordData: JSON.stringify(passwordData) }, 
+            this.api_base_url,
+            { userData: JSON.stringify(userData), passwordData: JSON.stringify(passwordData) },
             { headers: headers }
         );
     }
@@ -46,11 +57,11 @@ export class UserMainServiceService {
         return 200;
     }
 
-    postUserReview(userData: number, userReview: Review) {
+    postUserReview(userData: number, userReview: any) {
         return 200;
     }
 
-    updateUserReview(userData: User, userReview: Review) {
+    updateUserReview(userData: User, userReview: any) {
         return 200;
     }
 
