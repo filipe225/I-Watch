@@ -12,7 +12,10 @@ import { UserLocalStorageService } from '../services/user-local-storage.service'
 })
 export class UserReviewsStore {
 
-    constructor(private net_service: UserMainServiceService) {
+    constructor(
+        private net_service: UserMainServiceService,
+        private ls_service: UserLocalStorageService
+        ) {
 
     }
 
@@ -42,26 +45,27 @@ export class UserReviewsStore {
         return this._user_data.getValue();
     }
 
-    set userData(user: User) {
+    set userData(user: any) {
         this._user_data.next(user);
         console.log("USER DATA AFTER SET", this.user_data$);
     }
 
     loginUser(username: string, password: string) {
-        try {
-            let server_response = this.net_service.loginUser(username, password).subscribe(server_data => {
-                return server_data.body;
-            });
 
-            const user_data = server_response["data"];
+        this.net_service.loginUser(username, password)
+            .toPromise()
+            .then(server_data => {
+                let user = server_data.body["data"];
+                this.userData = user;
+            })
+            .catch(error => error);
 
-            this.userData = user_data;
+    }
 
-            return true;
-        } catch (error) {
-            console.log(error);
-            return false;
-        }
+    logoutUser() {
+        this.ls_service.deleteStorageItem('ACCESS_TOKEN');
+        this.ls_service.deleteStorageItem('EXPIRES_IN');
+        this.userData = undefined;
     }
 
     // USER REVIEWS FUNCTIONS
@@ -71,6 +75,26 @@ export class UserReviewsStore {
 
     set userReviews(val: any[]) {
         this._user_reviews.next(val);
+    }
+
+    getUserReviews() {
+        if(this.hasInternet) {
+            let { user_id, token } = this.userData;
+            this.net_service.getUserReviews(user_id, token)
+                .then( server_data => {
+                    console.log(server_data);
+                    const reviews = server_data.data;
+                    this.userReviews = reviews;
+                    console.log(this.userReviews);
+                })  
+                .catch(error => console.log(error));
+
+        } else {
+            const reviews = this.ls_service.getStorageItemParsed('user_reviews');
+            if(reviews) {
+                this.userReviews = reviews;
+            }
+        }
     }
 
     addUserReview(newReview: any) {

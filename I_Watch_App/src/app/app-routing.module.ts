@@ -27,19 +27,34 @@ const routes: Routes = [
         path: 'i-watched-list',
         loadChildren: './pages/i-watched-list/i-watched-list.module#IWatchedListPageModule'
     },
-    { 
-        path: 'add-new-item', 
-        loadChildren: './pages/add-new-item/add-new-item.module#AddNewItemPageModule' 
+    {
+        path: 'add-new-item',
+        loadChildren: './pages/add-new-item/add-new-item.module#AddNewItemPageModule'
+    },
+    {
+        path: 'i-watched-review-detail',
+        loadChildren: './pages/i-watched-review-detail/i-watched-review-detail.module#IWatchedReviewDetailPageModule'
     },
     { 
-        path: 'i-watched-review-detail', 
-        loadChildren: './pages/i-watched-review-detail/i-watched-review-detail.module#IWatchedReviewDetailPageModule' 
+        path: 'user-profile', 
+        loadChildren: './pages/user-profile/user-profile.module#UserProfilePageModule' 
     },
-  { path: 'user-profile', loadChildren: './pages/user-profile/user-profile.module#UserProfilePageModule' },
-  { path: 'friends-list', loadChildren: './pages/friends-list/friends-list.module#FriendsListPageModule' },
-  { path: 'review-detail', loadChildren: './pages/review-detail/review-detail.module#ReviewDetailPageModule' },
-  { path: 'friend-i-watched-list', loadChildren: './pages/friend-i-watched-list/friend-i-watched-list.module#FriendIWatchedListPageModule' },
-  { path: 'sync-data', loadChildren: './pages/sync-data/sync-data.module#SyncDataPageModule' }
+    { 
+        path: 'friends-list', 
+        loadChildren: './pages/friends-list/friends-list.module#FriendsListPageModule' 
+    },
+    { 
+        path: 'review-detail', 
+        loadChildren: './pages/review-detail/review-detail.module#ReviewDetailPageModule' 
+    },
+    { 
+        path: 'friend-i-watched-list', 
+        loadChildren: './pages/friend-i-watched-list/friend-i-watched-list.module#FriendIWatchedListPageModule' 
+    },
+    { 
+        path: 'sync-data', 
+        loadChildren: './pages/sync-data/sync-data.module#SyncDataPageModule' 
+    }
 ];
 
 @NgModule({
@@ -49,3 +64,5 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 export class AppRoutingModule { }
+
+// http://meumobi.github.io/ionic/2018/10/19/login-flow-ionic4.html

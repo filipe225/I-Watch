@@ -5,61 +5,18 @@ import { Md5 } from 'ts-md5/dist/md5';
     providedIn: 'root'
 })
 export class UserLocalStorageService {
-    default_item_name: string = 'user-items';
-    helper_object_name: string = 'actions-to-update';
-
-    default_items_object = [
-        {
-            type: 'Series',
-            name: 'Breaking Bad',
-            rating: 20,
-            opinion: 'The best',
-            total_seasons: 5,
-            seasons_watched: 5,
-            status: 'Finished',
-            created_in: new Date().toLocaleString()
-        },
-        {
-            type: 'Series',
-            name: 'Legion',
-            rating: 15,
-            opinion: 'Great with, with some worse moments.',
-            total_seasons: 2,
-            seasons_watched: 2,
-            status: 'Running',
-            created_in: new Date().toLocaleString()
-        },
-        {
-            type: 'Movie',
-            name: 'Mad Max',
-            rating: 17,
-            opinion: 'What an action movie!',
-            total_seasons: -1,
-            seasons_watched: -1,
-            status: 'Finished',
-            created_in: new Date().toLocaleString()
-        },
-        {
-            type: 'Book',
-            name: '12 Rules for life',
-            rating: 14,
-            opinion: 'Very good book.',
-            total_seasons: -1,
-            seasons_watched: -1,
-            status: 'Finished',
-            created_in: new Date().toLocaleString()
-        }
-    ];
+    default_item_name: string = 'user_reviews';
+    helper_object_name: string = 'actions_to_update';
 
     constructor() {}
 
-    getStorageItem(itemName?: string) {
+    getStorageItemParsed(itemName?: string) {
         return JSON.parse(localStorage.getItem(itemName || this.default_item_name)) || null;
     }
 
-    setStorageItem(itemName: string, itemsObject) {
+    setStorageItemStringified(itemName: string, itemsObject) {
         try {
-            if (!itemsObject) itemsObject = this.default_items_object;
+            if (!itemsObject) throw new Error('No object defined');
             Object.defineProperty(itemsObject, 'edited', { value: new Date().toISOString() });
             localStorage.setItem(itemName || this.default_item_name, JSON.stringify(itemsObject))
             return 200;

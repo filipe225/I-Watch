@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserLocalStorageService } from '../../services/user-local-storage.service';
-import { Review } from '../../_models/Review';
+import { UserReviewsStore } from "../../store/user-reviews-store";
 
 @Component({
 	selector: 'app-i-watched-list',
 	templateUrl: './i-watched-list.page.html',
     styleUrls: ['./i-watched-list.page.scss'],
-    providers: [UserLocalStorageService]
+    providers: []
 })
 export class IWatchedListPage implements OnInit {
     all_reviews: any;
@@ -15,16 +14,11 @@ export class IWatchedListPage implements OnInit {
 
 	constructor(
         private router: Router,
-        private userLocalStorageService: UserLocalStorageService) {	}
+        private store: UserReviewsStore) {	}
 
 	ngOnInit() {
 
-        const items_to_sync = this.userLocalStorageService.getHelperItems();
-        if(items_to_sync) {
-            console.log("TCL: IWatchedListPage -> ngOnInit -> items_to_sync", items_to_sync)
-        }
-
-        this.all_reviews = this.userLocalStorageService.getStorageItem();
+        this.all_reviews = this.store.userReviews;
         this.reviews_to_display = this.all_reviews.slice();
     }
 

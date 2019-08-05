@@ -19,13 +19,16 @@ export class UserMainServiceService {
     }
 
     loginUser(username: string, password: string) {
+        console.log("TCL: UserMainServiceService -> loginUser -> username", username, password)
+
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
         return this.http.post(this.api_base_url + '/auth/login', {
-                username: username,
-                password: password
-            }, 
+            username: username,
+            password: password
+        },
             {
+                headers,
                 responseType: "json",
                 withCredentials: false,
                 observe: 'response'
@@ -52,9 +55,14 @@ export class UserMainServiceService {
         return this.http.put(this.api_base_url, newUserData);
     }
 
-    getUserReviews(user_id: number, user_token: string) {
-        this.http.get(this.api_base_url);
-        return 200;
+    getUserReviews(user_id: string, user_token: string) {
+        const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', user_token);
+        return this.http.get(this.api_base_url + '/api/user_reviews/' + user_id, {
+            headers,
+            observe: 'response',
+            responseType: 'json',
+            withCredentials: true
+        });
     }
 
     postUserReview(userData: number, userReview: any) {
