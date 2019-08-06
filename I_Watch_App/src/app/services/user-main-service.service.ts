@@ -41,7 +41,7 @@ export class UserMainServiceService {
         const headers = new HttpHeaders().set('Content-Type', 'application/json');
         //'https://showtime-deck.herokuapp.com/user_registration'
         return this.http.post(
-            this.api_base_url,
+            this.api_base_url + '/auth/user_registration',
             { userData: JSON.stringify(userData), passwordData: JSON.stringify(passwordData) },
             { headers: headers }
         );

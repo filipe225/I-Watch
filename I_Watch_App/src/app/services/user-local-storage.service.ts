@@ -41,9 +41,9 @@ export class UserLocalStorageService {
         if (Array.isArray(items)) {
             items.push(newItem)
         }
-        this.setStorageItem(this.default_item_name, items);
+        this.setStorageItemStringified(this.default_item_name, items);
 
-        let helper_items = this.getStorageItem(this.helper_object_name);
+        let helper_items = this.getStorageItemParsed(this.helper_object_name);
         if (Array.isArray(helper_items)) {
             newItem.action_type = 'insert';
             helper_items.push(newItem);
@@ -52,7 +52,7 @@ export class UserLocalStorageService {
             newItem.action_type = 'insert';
             helper_items.push(newItem);
         }
-        this.setStorageItem(this.helper_object_name, helper_items);
+        this.setStorageItemStringified(this.helper_object_name, helper_items);
 
     }
 

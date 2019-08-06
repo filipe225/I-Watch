@@ -52,13 +52,17 @@ export class UserReviewsStore {
 
     loginUser(username: string, password: string) {
 
-        this.net_service.loginUser(username, password)
-            .toPromise()
-            .then(server_data => {
-                let user = server_data.body["data"];
-                this.userData = user;
-            })
-            .catch(error => error);
+        return this.net_service.loginUser(username, password)
+                .toPromise()
+                .then(server_data => {
+                    let user = server_data.body["data"];
+                    this.userData = user;
+                    return true;
+                })
+                .catch(error => {
+                    console.error(error);
+                    return false;
+                });
 
     }
 
@@ -81,9 +85,10 @@ export class UserReviewsStore {
         if(this.hasInternet) {
             let { user_id, token } = this.userData;
             this.net_service.getUserReviews(user_id, token)
+                .toPromise()
                 .then( server_data => {
                     console.log(server_data);
-                    const reviews = server_data.data;
+                    const reviews = server_data["data"];
                     this.userReviews = reviews;
                     console.log(this.userReviews);
                 })  
