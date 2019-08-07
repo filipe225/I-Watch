@@ -42,7 +42,7 @@ export class UserMainServiceService {
         //'https://showtime-deck.herokuapp.com/user_registration'
         return this.http.post(
             this.api_base_url + '/auth/user_registration',
-            { userData: JSON.stringify(userData), passwordData: JSON.stringify(passwordData) },
+            { userData: userData, passwordData: passwordData },
             { headers: headers }
         );
     }

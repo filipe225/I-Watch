@@ -28,6 +28,12 @@ export class RegisterPage implements OnInit {
     }
 
     ngOnInit() {
+        if(!navigator.onLine) {
+            this.presentToast({
+                message: 'No internet connection!'
+            });
+        }
+
         let email_regexp = new RegExp("[^@]+@[^\.]+\..+", "gi");
         let myFormGroup = new FormGroup({
             username: new FormControl('', {
@@ -39,7 +45,7 @@ export class RegisterPage implements OnInit {
                 updateOn: 'change'
             }),
             repeat_password: new FormControl('', {
-                validators: [Validators.required], 
+                validators: [Validators.required, Validators.maxLength(20)], 
                 updateOn: 'change'
             }),
             user_email: new FormControl('', {
@@ -48,11 +54,11 @@ export class RegisterPage implements OnInit {
             
             }),
             first_name: new FormControl('', {
-                validators: [Validators.required, Validators.minLength(3)],
+                validators: [Validators.required, Validators.minLength(3), Validators.maxLength(10)],
                 updateOn: 'change'
             }),
             last_name: new FormControl('', {
-                validators: [Validators.required, Validators.minLength(3)],
+                validators: [Validators.required, Validators.minLength(3), Validators.maxLength(10)],
                 updateOn: 'change'
             })
         });
@@ -67,24 +73,28 @@ export class RegisterPage implements OnInit {
             ],
             'username': [
                 { type: 'required', message: 'Username is required.' },
-                { type: 'minLength', message: 'Minimun length is 5.' }
+                { type: 'minlength', message: 'Minimun length is 5.' },
+                { type: 'maxlength', message: 'Maximum length is 20' }
             ],
             'password': [
                 { type: 'required', message: 'Password is required' },
-                { type: 'minLength', message: 'Minimum length is 6' },
-                { type: 'maxLength', message: 'Maximum length is 20' }
+                { type: 'minlength', message: 'Minimum length is 6' },
+                { type: 'maxlength', message: 'Maximum length is 20' }
             ],
             'repeat_password': [
                 { type: 'required', message: 'Repeat password is required' },
-                { type: 'comparison', message: 'Passwords do not match!' }
+                { type: 'comparison', message: 'Passwords do not match!' },
+                { type: 'maxlength', message: 'Maximum length is 20' }
             ],           
             'first_name': [
                 { type: 'required', message: 'First name is required' },
-                { type: 'minLength', message: 'First name must have at leat 3 characters.'}
+                { type: 'minlength', message: 'First name must have at leat 3 characters.'},
+                { type: 'maxlength', message: 'Maximum length is 10' }
             ],
             'last_name': [
                 { type: 'required', message: 'Last name is required' },
-                { type: 'minLength', message: 'Last name must have at leat 3 characters.'}
+                { type: 'minlength', message: 'Last name must have at leat 3 characters.'},
+                { type: 'maxlength', message: 'Maximum length is 10' }
             ]
         }
     }
@@ -103,6 +113,7 @@ export class RegisterPage implements OnInit {
     }
 
     registerNewUser() {    
+        console.log(this.registrationForm);
         if (this.registrationForm.valid) {
             console.log('registrationForm submitted', this.registrationForm);
             
@@ -130,10 +141,10 @@ export class RegisterPage implements OnInit {
                 .then( respData => {
                     console.log(respData);
                     this.presentToast({
-                        header: 'Registration response',
                         message: respData["message"],
                         duration: 3000
-                    })
+                    });
+                    this.router.navigateByUrl('/login');
                 })
                 .catch( error => {
                     console.log(error)

@@ -11,7 +11,7 @@ export class HomePage implements OnInit {
 
     constructor(
         private router: Router,
-        private userReviewsStore: UserReviewsStore
+        private store: UserReviewsStore
     ) { }
 
     ngOnInit(): void {
@@ -19,7 +19,8 @@ export class HomePage implements OnInit {
     }
 
     useOfflineMode() {
-        this.userReviewsStore.hasInternet = false;
+        this.store.hasInternet = false;
+        this.store.userData = null;
         this.router.navigateByUrl('/i-watched-list');
     }
 }
