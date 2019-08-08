@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
 
     }
 
-    loginSubmit() {
+    async loginSubmit() {
         // let username = this.loginFormInput.username;
         // let password = this.loginFormInput.password;
         
@@ -57,9 +57,13 @@ export class LoginPage implements OnInit {
         // let exists = this.mockUsers.some( obj => obj.username === username && obj.password === password);
         // console.log("exists", exists);
 
-        let result = this.store.loginUser(this.loginFormInput.username, this.loginFormInput.password);
-        if(result) {
+        let result = await this.store.loginUser(this.loginFormInput.username, this.loginFormInput.password);
+        console.log("RESULT CLIENT ",  result);
+        if(result["status"] === 200) {
+            console.log(" RESPONSE FROM SERVER", result);
             this.router.navigateByUrl('/sync-data');
+        } else {
+            console.log("  RESULT FROM SERVER", result);
         }
         
     }

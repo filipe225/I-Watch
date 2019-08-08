@@ -55,9 +55,15 @@ export class UserReviewsStore {
         return this.net_service.loginUser(username, password)
                 .toPromise()
                 .then(server_data => {
-                    let user = server_data.body["data"];
-                    this.userData = user;
-                    return true;
+                    console.log("RESULT FROM SERVER STORE", server_data);
+                    if(server_data.status === 200) {
+                        let user = server_data.body["data"];
+                        this.userData = user;
+                        return server_data;
+                    } else {
+                        console.log("RESULT FROM SERVER STORE", server_data);
+                        return server_data["error"];
+                    }
                 })
                 .catch(error => {
                     console.error(error);
