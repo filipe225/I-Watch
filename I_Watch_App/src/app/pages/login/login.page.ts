@@ -58,11 +58,16 @@ export class LoginPage implements OnInit {
         // console.log("exists", exists);
 
         let result = await this.store.loginUser(this.loginFormInput.username, this.loginFormInput.password);
-        console.log("RESULT CLIENT ",  result);
-        if(result["status"] === 200) {
+        if(result === true) {
             console.log(" RESPONSE FROM SERVER", result);
             this.router.navigateByUrl('/sync-data');
         } else {
+            this.presentToast({
+                message: result.message,
+                extras : {
+                    color: 'red'
+                }
+            })
             console.log("  RESULT FROM SERVER", result);
         }
         

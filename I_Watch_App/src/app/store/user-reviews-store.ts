@@ -5,6 +5,7 @@ import { Review } from '../_models/Review';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserMainServiceService } from '../services/user-main-service.service';
 import { UserLocalStorageService } from '../services/user-local-storage.service';
+import { bloomHasToken } from '@angular/core/src/render3/di';
 
 
 @Injectable({
@@ -31,6 +32,16 @@ export class UserReviewsStore {
         this._has_internet.next(val);
     }
 
+    // IS LOGGED IN 
+    // TODO IMPLEMENT BETTER
+    // https://netbasal.com/angular-2-persist-your-login-status-with-behaviorsubject-45da9ec43243
+    private readonly _is_logged_in = new BehaviorSubject<boolean>(this.hasToken())
+    readonly is_logged_in$ = this._is_logged_in.asObservable();
+
+    hasToken() {
+        return !!this.ls_service.getStorageItemParsed('ACCESS_TOKEN');
+    }
+
     // USER DATA
     private readonly _user_data = new BehaviorSubject<User>(undefined);
     readonly user_data$ = this._user_data.asObservable();
@@ -47,6 +58,7 @@ export class UserReviewsStore {
 
     set userData(user: any) {
         this._user_data.next(user);
+        this._is_logged_in.next(true);
         console.log("USER DATA AFTER SET", this.user_data$);
     }
 
@@ -57,9 +69,14 @@ export class UserReviewsStore {
                 .then(server_data => {
                     console.log("RESULT FROM SERVER STORE", server_data);
                     if(server_data.status === 200) {
-                        let user = server_data.body["data"];
+                        let user = server_data.body["data"]["user"];
+                        let token = server_data.body["data"]["token"];
+                        this.ls_service.setStorageItemStringified("ACCESS_TOKEN", token);
+                        let in_24_hours = new Date();
+                        in_24_hours.setHours(in_24_hours.getHours() + 24);
+                        this.ls_service.setStorageItemStringified("EXPIRES_IN", in_24_hours);
                         this.userData = user;
-                        return server_data;
+                        return true;
                     } else {
                         console.log("RESULT FROM SERVER STORE", server_data);
                         return server_data["error"];
@@ -67,7 +84,7 @@ export class UserReviewsStore {
                 })
                 .catch(error => {
                     console.error(error);
-                    return false;
+                    return error["error"];
                 });
 
     }

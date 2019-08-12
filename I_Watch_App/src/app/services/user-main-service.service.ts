@@ -77,6 +77,16 @@ export class UserMainServiceService {
         return 200;
     }
 
+    isUsernameAvailable(username: string) {
+        console.log("USER SERVICE", username);
+        const headers = new HttpHeaders().set('Content.Type', 'application/json');
+        return this.http.get(this.api_base_url + '/auth/is_username_available/' + username, {
+            headers,
+            observe: 'response',
+            responseType: 'json'
+        });
+    }
+
 
 
 }
