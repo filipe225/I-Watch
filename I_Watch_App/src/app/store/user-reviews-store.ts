@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserMainServiceService } from '../services/user-main-service.service';
 import { UserLocalStorageService } from '../services/user-local-storage.service';
 import { bloomHasToken } from '@angular/core/src/render3/di';
+import { ReviewDetailPage } from '../pages/review-detail/review-detail.page';
 
 
 @Injectable({
@@ -125,25 +126,43 @@ export class UserReviewsStore {
         }
     }
 
-    addUserReview(newReview: any) {
+    postUserReview(newReview: any) {
 
         if (this.hasInternet) {
-
+            return this.net_service.postUserReview(this.userData, newReview)
+            .toPromise()
+            .then( response => {
+                    const review_id = response["data"]["review_id"];
+                    newReview.id = review_id;
+                    let current_reviews = this.userReviews;
+                    current_reviews.push(newReview);
+                    this.userReviews = current_reviews;
+                    return response["message"];
+            })
+            .catch( error => {
+                console.log(error);
+                return error["message"];
+            });
         } else {
-
-        }
-
-        try {
-
-        } catch (error) {
-
-        }
-        if (newReview) {
+            const reviews = this.ls_service.getStorageItemParsed('user_reviews') || [];
+            newReview.id = reviews.length + 1;
+            reviews.push(newReview);
+            this.ls_service.setStorageItemStringified("user_reviews", reviews);
+            const array_with_updates = this.ls_service.getHelperItems();
+            array_with_updates.push({
+                action: 'insert',
+                data: newReview
+            });
+            // TODO set helper array 
 
         }
     }
 
-    deleteUserReview(id: number) {
+    putUserReview(updatedReview: any) {
+
+    }
+
+    deleteUserReview(id: string) {
         //this.userReviews = this.userReviews.filter( review => review.id !== id);
     }
 

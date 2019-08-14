@@ -57,10 +57,14 @@ export class UserLocalStorageService {
     }
 
     clearHelperItems() {
-        localStorage.setItem(this.helper_object_name, null);
+        localStorage.setItem(this.helper_object_name, JSON.stringify([]));
     }
 
     getHelperItems() {
         return JSON.parse(localStorage.getItem(this.helper_object_name));
+    }
+
+    setHelperItems() {
+        
     }
 }

@@ -170,6 +170,10 @@ export class AddNewItemPage implements OnInit {
         this.userLocalStorageService.addNewItemToObject(book_review);
     }
 
+    addNewReview(obj_to_add: any) {
+        const result = this.userStore.postUserReview(obj_to_add);
+    }
+
     cancel() {
         this.router.navigateByUrl('/i-watched-list');
     }
