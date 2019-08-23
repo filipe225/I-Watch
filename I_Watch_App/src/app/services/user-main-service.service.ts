@@ -65,8 +65,20 @@ export class UserMainServiceService {
         });
     }
 
-    postUserReview(userData: number, userReview: any) {
-        return 200;
+    postUserReview(user_id: string, user_token, user_review: any) {
+
+        const headers = new HttpHeaders().set('Content-Type', 'application/json').set('Authorization', user_token);
+
+        return this.http.post(this.api_base_url + '/api/user_reviews/' + user_id, {
+                userReview: user_review
+            },
+            {
+                headers,
+                observe: 'response',
+                responseType: 'json',
+                withCredentials: true
+
+            });
     }
 
     updateUserReview(userData: User, userReview: any) {

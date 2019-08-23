@@ -43,6 +43,10 @@ export class UserReviewsStore {
         return !!this.ls_service.getStorageItemParsed('ACCESS_TOKEN');
     }
 
+    getToken() {
+        return this.ls_service.getStorageItemParsed('ACCESS_TOKEN');
+    }
+
     // USER DATA
     private readonly _user_data = new BehaviorSubject<User>(undefined);
     readonly user_data$ = this._user_data.asObservable();
@@ -129,7 +133,8 @@ export class UserReviewsStore {
     postUserReview(newReview: any) {
 
         if (this.hasInternet) {
-            return this.net_service.postUserReview(this.userData, newReview)
+            const user_token = this.getToken();
+            return this.net_service.postUserReview(this.userData.id, user_token, newReview)
             .toPromise()
             .then( response => {
                     const review_id = response["data"]["review_id"];
