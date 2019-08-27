@@ -17,20 +17,31 @@ export class UserReviewsStore {
     constructor(
         private net_service: UserMainServiceService,
         private ls_service: UserLocalStorageService
-        ) {
+    ) {
+        window.addEventListener('online', function(e) {
+            this.updateInternetValue(navigator.onLine);
+        }.bind(this));
 
+        window.addEventListener('offline', function() {
+            this.updateInternetValue(navigator.onLine);
+        }.bind(this));
     }
 
     // IS INTERNET ON?
     private readonly _has_internet = new BehaviorSubject<boolean>(false);
     readonly has_internet$ = this._has_internet.asObservable();
 
-    get hasInternet() {
+
+    get hasInternet() {    
         return this._has_internet.getValue();
     }
 
     set hasInternet(val: boolean) {
         this._has_internet.next(val);
+    }
+
+    updateInternetValue(value) {
+        this.hasInternet = value;
     }
 
     // IS LOGGED IN 
