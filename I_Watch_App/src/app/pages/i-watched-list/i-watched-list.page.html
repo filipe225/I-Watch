@@ -17,6 +17,26 @@
 <ion-content>
 
     <ion-grid>
+
+        <ion-row>
+            <ion-col size="12">
+                <ion-segment value="all" (ionChange)="segmentChanged($event)">
+                    <ion-segment-button value="all">
+                        <ion-label>All</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="movies">
+                        <ion-label>Movies</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="series">
+                        <ion-label>Series</ion-label>
+                    </ion-segment-button>
+                    <ion-segment-button value="books">
+                        <ion-label>Books</ion-label>
+                    </ion-segment-button>
+                </ion-segment>
+            </ion-col>
+        </ion-row>
+
         <ion-row>
             <ion-col size-md="6">
                 <ion-card *ngFor="let review of reviews_to_display">
@@ -35,8 +55,7 @@
             </ion-col>
         </ion-row>
 
-        <ion-tabs slots="bottom">
-            <!-- Tab bar -->
+<!--         <ion-tabs slots="bottom">
             <ion-tab-bar slot="bottom" selectedTab="">
                 <ion-tab-button tab="all">
                     <ion-icon name="list"></ion-icon>
@@ -51,7 +70,7 @@
                     <ion-icon name="book"></ion-icon>
                 </ion-tab-button>
             </ion-tab-bar>
-        </ion-tabs>
+        </ion-tabs> -->
 
     </ion-grid>
 

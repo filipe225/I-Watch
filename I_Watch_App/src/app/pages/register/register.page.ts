@@ -42,7 +42,7 @@ export class RegisterPage implements OnInit {
 
         let myFormGroup = new FormGroup({
             user_email: new FormControl('', {
-                validators: [Validators.required, Validators.pattern(email_regexp)],
+                validators: [Validators.required, Validators.minLength(5), Validators.maxLength(50), Validators.pattern(email_regexp)],
                 updateOn: 'change'
             }),
             username: new FormControl('', {
@@ -75,6 +75,8 @@ export class RegisterPage implements OnInit {
         this.validationMessages = {
             'email': [
                 { type: 'required', message: 'Email is Required' },
+                { type: 'minlength', message: 'Minimum length is 5' },
+                { type: 'maxlength', message: 'Maximum length is 50' },
                 { type: 'pattern', message: 'Email does not fit a valid pattern' }
             ],
             'username': [
@@ -107,6 +109,7 @@ export class RegisterPage implements OnInit {
         }
     }
 
+    // NOT IN USE
     getFieldErrorType(field: string) {
         let coiso = Object.entries(this.registrationForm.get(field).errors)
             .filter(([key, value]) => value === true)
@@ -190,7 +193,7 @@ export class RegisterPage implements OnInit {
     async presentToast(obj) {
         const toast = await this.toastController.create({
             header: obj.header ? obj.header : '',
-            message: obj.message ? obj.message : 'erro',
+            message: obj.message ? obj.message : 'Error',
             duration: obj.duration ? obj.duration : 2000,
             position: 'bottom'
         });

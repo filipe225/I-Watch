@@ -1,13 +1,8 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { User } from '../_models/User';
-import { Review } from '../_models/Review';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserMainServiceService } from '../services/user-main-service.service';
 import { UserLocalStorageService } from '../services/user-local-storage.service';
-import { bloomHasToken } from '@angular/core/src/render3/di';
-import { ReviewDetailPage } from '../pages/review-detail/review-detail.page';
-
 
 @Injectable({
     providedIn: 'root'
