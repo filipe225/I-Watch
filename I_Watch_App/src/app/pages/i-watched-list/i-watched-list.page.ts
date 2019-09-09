@@ -61,4 +61,8 @@ export class IWatchedListPage implements OnInit {
         }
     }
 
+    openReviewDetails(review_id) {
+        this.router.navigateByUrl('i-watched-review-detail/' + review_id);
+    }
+
 }

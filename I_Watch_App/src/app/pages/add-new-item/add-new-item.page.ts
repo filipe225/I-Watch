@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastController } from "@ionic/angular";
+
 import { UserLocalStorageService } from '../../services/user-local-storage.service';
 import { UserReviewsStore } from '../../store/user-reviews-store';
+
 import { Movie } from 'src/app/_models/Movie';
 import { Series } from 'src/app/_models/Series';
 import { Book } from 'src/app/_models/Book';
@@ -25,6 +28,7 @@ export class AddNewItemPage implements OnInit {
         private activatedRoute: ActivatedRoute,
         private userLocalStorageService: UserLocalStorageService,
         private formBuilder: FormBuilder,
+        private toastController: ToastController,
         private userStore: UserReviewsStore
     ) { }
 
@@ -180,5 +184,15 @@ export class AddNewItemPage implements OnInit {
 
     cancelForm() {
         this.itemType = null;
+    }
+
+    async presentToast(obj) {
+        const toast = await this.toastController.create({
+            header: obj.header ? obj.header : '',
+            message: obj.message ? obj.message : 'Error',
+            duration: obj.duration ? obj.duration : 2000,
+            position: 'bottom'
+        });
+        toast.present();
     }
 }

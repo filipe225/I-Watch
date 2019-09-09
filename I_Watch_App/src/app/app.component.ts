@@ -16,13 +16,13 @@ export class AppComponent {
             icon: 'home'
         },
         {
-            title: 'List',
-            url: '/list',
+            title: 'Login',
+            url: '/login',
             icon: 'list'
         },
         {
-            title: 'Login',
-            url: '/login',
+            title: 'Sign Up',
+            url: '/register',
             icon: 'list'
         },
         {
@@ -36,6 +36,38 @@ export class AppComponent {
             icon: 'add'
         }
     ];
+
+    public loggedMenu = [
+        {
+            title: 'I Watched',
+            url: '/i-watched-list',
+            icon: 'list'
+        },
+        {
+            title: 'Add New Item',
+            url: '/add-new-item',
+            icon: 'add'
+        },
+        {
+            title: 'Profile',
+            url: '/user-profile',
+            icon: 'list'
+        },
+        {
+            title: 'Friends List',
+            url: '/friends-list',
+            icon: 'list'
+        },     
+        {
+            title: 'Logout',
+            url: '/logout',
+            icon: 'list'
+        },
+
+    ];
+
+
+    public main_menu: [];
 
     constructor(
         private platform: Platform,

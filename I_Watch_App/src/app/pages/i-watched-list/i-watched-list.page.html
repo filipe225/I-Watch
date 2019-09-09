@@ -7,7 +7,7 @@
             I Watched
         </ion-title>
         <ion-buttons slot="end">
-            <button class="button" (click)="addNewItem()">
+            <button class="my-plus-button" (click)="addNewItem()">
                 <ion-icon name="add" class="fit-icon"></ion-icon>
             </button>
         </ion-buttons>
@@ -37,12 +37,22 @@
             </ion-col>
         </ion-row>
 
-        <ion-row>
+        <ion-row v-if="reviews_to_display.length">
+            <ion-col size="12">
+                <ion-text class="ion-text-center">
+                    No reviews to present. Make your first review!
+                </ion-text>
+                <button class="my-plus-button" (click)="addNewItem()">
+                    <ion-icon name="add" class="fit-icon"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+        <ion-row v-else>
             <ion-col size-md="6">
                 <ion-card *ngFor="let review of reviews_to_display">
                     <ion-card-header>
                         <ion-card-subtitle>{{ review.type }}</ion-card-subtitle>
-                        <ion-card-title>{{ review.name }}</ion-card-title>
+                        <ion-card-title (click)="openReviewDetails(review.id)">{{ review.name }}</ion-card-title>
                     </ion-card-header>
 
                     <ion-card-content>

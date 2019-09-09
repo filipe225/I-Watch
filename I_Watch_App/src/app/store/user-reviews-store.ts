@@ -20,6 +20,9 @@ export class UserReviewsStore {
         window.addEventListener('offline', function() {
             this.updateInternetValue(navigator.onLine);
         }.bind(this));
+
+        const isOnline = navigator.onLine;
+        this.updateInternetValue(isOnline);
     }
 
     // IS INTERNET ON?
@@ -116,17 +119,26 @@ export class UserReviewsStore {
     }
 
     getUserReviews() {
+        console.log("getUserReviews", this.hasInternet);
+
         if(this.hasInternet) {
-            let { user_id, token } = this.userData;
-            this.net_service.getUserReviews(user_id, token)
-                .toPromise()
-                .then( server_data => {
-                    console.log(server_data);
-                    const reviews = server_data["data"];
-                    this.userReviews = reviews;
-                    console.log(this.userReviews);
-                })  
-                .catch(error => console.log(error));
+            let { id, token } = this.userData;
+            return this.net_service.getUserReviews(id, token)
+                    .toPromise()
+                    .then( server_data => {
+                        console.log(server_data);
+                        const reviews = server_data["data"];
+                        this.userReviews = reviews;
+                        console.log(this.userReviews);
+                        return server_data["success"];
+                    })  
+                    .catch(error => {
+                        console.error(error);
+                        return {
+                            success: false,
+                            message: "Error retrieving data"
+                        }
+                    });
 
         } else {
             const reviews = this.ls_service.getStorageItemParsed('user_reviews');

@@ -6,4 +6,14 @@
 
 <ion-content>
 
+    <ion-row>
+        <ion-col size="12">
+            <ion-card *ngFor="let friend of friends_list">
+                <ion-card-header (click)="viewFriendReviews(friend.id)">
+                    <ion-card-title>{{ friend.first_name }} {{ friend.last_name }}</ion-card-title>
+                </ion-card-header>
+            </ion-card>
+        </ion-col>
+    </ion-row>
+
 </ion-content>

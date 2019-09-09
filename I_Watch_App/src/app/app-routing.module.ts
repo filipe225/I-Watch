@@ -32,7 +32,7 @@ const routes: Routes = [
         loadChildren: './pages/add-new-item/add-new-item.module#AddNewItemPageModule'
     },
     {
-        path: 'i-watched-review-detail',
+        path: 'i-watched-review-detail/:review_id',
         loadChildren: './pages/i-watched-review-detail/i-watched-review-detail.module#IWatchedReviewDetailPageModule'
     },
     { 
